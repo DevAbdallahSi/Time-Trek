@@ -21,6 +21,7 @@ public class ResultController {
 //			session.invalidate(); // Clear the session if the user doesn't exist
 //			return "redirect:/";
 //		}
+		
 //
 //		model.addAttribute("user", user);
 
