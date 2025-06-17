@@ -9,6 +9,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Meta tags for mobile optimization -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style"
+	content="black-translucent">
+
 <title>Login and Registration</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css" />
@@ -20,26 +28,26 @@
 	<div class="container" id="container">
 
 		<div class="form-container sign-up-container">
-	<form:form action="/register" method="post" modelAttribute="newUser">
-		<h1>Create Account</h1>
+			<form:form action="/register" method="post" modelAttribute="newUser">
+				<h1>Create Account</h1>
 
-		<form:input path="firstName" placeholder="Username" />
-		<form:errors path="firstName" cssClass="text-danger" />
+				<form:input path="firstName" placeholder="Username" />
+				<form:errors path="firstName" cssClass="text-danger" />
 
-		<form:input path="lastName" placeholder="Last Name" />
-		<form:errors path="lastName" cssClass="text-danger" />
-		
-		<form:input path="email" placeholder="Email" />
-		<form:errors path="email" cssClass="text-danger" />
+				<form:input path="lastName" placeholder="Last Name" />
+				<form:errors path="lastName" cssClass="text-danger" />
 
-		<form:password path="password" placeholder="Password" />
-		<form:errors path="password" cssClass="text-danger" />
+				<form:input path="email" placeholder="Email" />
+				<form:errors path="email" cssClass="text-danger" />
 
-		<form:password path="confirm" placeholder="Confirm Password" />
-		<form:errors path="confirm" cssClass="text-danger" />
-		<button type="submit">Register</button>
-	</form:form>
-</div>
+				<form:password path="password" placeholder="Password" />
+				<form:errors path="password" cssClass="text-danger" />
+
+				<form:password path="confirm" placeholder="Confirm Password" />
+				<form:errors path="confirm" cssClass="text-danger" />
+				<button type="submit">Register</button>
+			</form:form>
+		</div>
 
 
 		<div class="form-container sign-in-container">

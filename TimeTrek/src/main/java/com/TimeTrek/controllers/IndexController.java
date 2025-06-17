@@ -17,9 +17,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-public class HomeController {
+public class IndexController {
     
-    // Add once service is implemented:
      @Autowired
      private UserService userServ;
 //     @Autowired
@@ -46,7 +45,7 @@ public class HomeController {
         }
 
         session.setAttribute("loggedInUser", registeredUser);
-        return "redirect:/dashboard";
+        return "redirect:/home";
     }
     
 
@@ -61,36 +60,9 @@ public class HomeController {
         }
 
         session.setAttribute("loggedInUser", user);
-        return "redirect:/dashboard";
+        return "redirect:/home";
     }
-    
-
-    
-//    @GetMapping("/dashboard")
-//    public String home(HttpSession session, Model model) {
-//    	
-//    	    User user = (User)session.getAttribute("loggedInUser");
-//    	    if (user == null) {
-//    	        session.invalidate(); // Clear the session if the user doesn't exist
-//    	        return "redirect:/";
-//    	    }
-//
-//        List<Talk> myTalks = talkServices.findUserTalks(user);
-////        List<Project> allProjects = projectServices.allProject();
-//
-////        List<Project> notJoined = allProjects.stream()
-////            .filter(p -> !myProjects.contains(p))
-////            .collect(Collectors.toList());
-//
-//        model.addAttribute("user", user);
-//        model.addAttribute("list", myTalks);
-//        model.addAttribute("allTalk", talkServices.allTalk());
-//        model.addAttribute("notContain", talkServices.findByMembersNotContains(user));
-//
-//        return "dashboard";
-//    }
-//    
-    
+       
     
     
     
