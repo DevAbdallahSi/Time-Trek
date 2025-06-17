@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isErrorPage="true"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,62 +67,77 @@
 
 				</div>
 
+
 				<div class="mb-4">
 					<label class="form-label">🧠 How are you feeling?</label>
 					<div class="mood-selector">
-						<input type="hidden" name="mood" id="mood" value="">
 						<div class="row g-3">
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="energetic">
+								<label class="mood-card w-100" for="mood-energetic"> <input
+									type="radio" name="mood" id="mood-energetic" value="energetic"
+									hidden>
 									<div class="mood-emoji">⚡</div>
 									<div class="mood-label">Energetic</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="tired">
+								<label class="mood-card w-100" for="mood-tired"> <input
+									type="radio" name="mood" id="mood-tired" value="tired" hidden>
 									<div class="mood-emoji">😴</div>
 									<div class="mood-label">Tired</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="curious">
+								<label class="mood-card w-100" for="mood-curious"> <input
+									type="radio" name="mood" id="mood-curious" value="curious"
+									hidden>
 									<div class="mood-emoji">🤔</div>
 									<div class="mood-label">Curious</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="stressed">
+								<label class="mood-card w-100" for="mood-stressed"> <input
+									type="radio" name="mood" id="mood-stressed" value="stressed"
+									hidden>
 									<div class="mood-emoji">😰</div>
 									<div class="mood-label">Stressed</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="bored">
+								<label class="mood-card w-100" for="mood-bored"> <input
+									type="radio" name="mood" id="mood-bored" value="bored" hidden>
 									<div class="mood-emoji">😑</div>
 									<div class="mood-label">Bored</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="creative">
+								<label class="mood-card w-100" for="mood-creative"> <input
+									type="radio" name="mood" id="mood-creative" value="creative"
+									hidden>
 									<div class="mood-emoji">🎨</div>
 									<div class="mood-label">Creative</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="focused">
+								<label class="mood-card w-100" for="mood-focused"> <input
+									type="radio" name="mood" id="mood-focused" value="focused"
+									hidden>
 									<div class="mood-emoji">🎯</div>
 									<div class="mood-label">Focused</div>
-								</div>
+								</label>
 							</div>
 							<div class="col-6 col-md-3">
-								<div class="mood-card" data-mood="relaxed">
+								<label class="mood-card w-100" for="mood-relaxed"> <input
+									type="radio" name="mood" id="mood-relaxed" value="relaxed"
+									hidden>
 									<div class="mood-emoji">😌</div>
 									<div class="mood-label">Relaxed</div>
-								</div>
+								</label>
 							</div>
 						</div>
 					</div>
 				</div>
+
 
 				<button type="submit" class="btn btn-submit w-100">🚀 Get
 					My Perfect Suggestion</button>
@@ -179,7 +193,7 @@
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
-			<p class="mb-1">&copy; 2025 Time Path. All rights reserved.</p>
+			<p class="mb-1">&copy; 2025 Time Trek. All rights reserved.</p>
 			<a href="#" class="text-light text-decoration-none">GitHub</a>
 		</div>
 	</footer>
