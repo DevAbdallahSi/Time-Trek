@@ -6,7 +6,7 @@
 }
 
 body {
-	background: linear-gradient(135deg, #2c3e50, #4ca1af);
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -21,9 +21,9 @@ body {
 /* Floating Emojis */
 .floating-element {
 	position: absolute;
-	font-size: 5rem;
+	font-size: 3rem;
 	animation: float 3s ease-in-out infinite;
-	opacity: 0.8;
+	opacity: 0.2;
 }
 
 .floating-element:nth-child(1) {
@@ -50,12 +50,21 @@ body {
 
 50%
 {
-transform:
-translateY(-20px);
+transform
+:
+translateY(
+-20px
+);
 }
-100%{
-transform:
-translateY(0);}}
+100%
+{
+transform
+:
+translateY(
+0
+);
+}
+}
 
 /* Glassy Logo */
 .brand-logo {
@@ -81,8 +90,8 @@ translateY(0);}}
 
 .text-danger {
 	font-size: 0.8rem;
-	color: #ff4b2b;
-	height: 16px; /* ✅ Reserve space even if there's no error */
+	color: #36f9ce;
+	height: 8px; /* ✅ Reserve space even if there's no error */
 	display: block;
 	margin-top: 4px;
 }
@@ -206,68 +215,12 @@ button.ghost {
 100%
 {
 opacity
-
-
-
-
-
-
-
-
-
-
 :
-
-
-
-
-
-
-
-
-
-
 1
-
-
-
-
-
-
-
-
 ;
 z-index
-
-
-
-
-
-
-
-
-
-
 :
-
-
-
-
-
-
-
-
-
-
 5
-
-
-
-
-
-
-
-
 ;
 }
 }

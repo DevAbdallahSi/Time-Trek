@@ -38,12 +38,12 @@ public class User {
     
     @NotNull()
 //    @NotEmpty(message="firstName is required!")
-    @Size(min=3, max=30, message="firstName must be between 3 and 30 characters")
+    @Size(min=3, max=30, message="must be atleast 3 characters")
     private String firstName;
     
     @NotNull()
 //    @NotEmpty(message="lastName is required!")
-    @Size(min=3, max=30, message="lastName must be between 3 and 30 characters")
+    @Size(min=3, max=30, message="must be atleast 3 characters")
     private String lastName;   
     
 
@@ -55,12 +55,12 @@ public class User {
     
 //    @NotEmpty(message="Password is required!")
     @NotNull
-    @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
+    @Size(min=8, max=128, message="must be between 8 and 128 characters")
     private String password;
     
     @Transient
 //    @NotEmpty(message="Confirm Password is required!")
-    @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
+//    @Size(min=8, max=128, message="this filled match") 
     private String confirm;
     
 //    
