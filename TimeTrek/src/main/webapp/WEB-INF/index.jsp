@@ -31,8 +31,7 @@
 	<!-- Brand Logo -->
 	<div class="brand-logo">🕒 Time Path</div>
 
-	<div class="container ${showSignUp ? 'right-panel-active' : ''}"
-		id="container">
+	<div class="container ${showSignUp ? 'right-panel-active' : ''}" id="container">
 		<!-- Registration form -->
 		<div class="form-container sign-up-container">
 			<form:form action="/register" method="post" modelAttribute="newUser">
