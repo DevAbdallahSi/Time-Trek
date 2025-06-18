@@ -41,6 +41,7 @@
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link active" href="#about">Dashboard</a></li>
+					    <li class="nav-item"><a class="nav-link" href="/schedule">Schedule</a></li> <!-- ✅ New -->
 					<li class="nav-item"><a class="nav-link" href="#about">John
 							Doe</a></li>
 					<li class="nav-item"><a class="nav-link" href="#about">Log
