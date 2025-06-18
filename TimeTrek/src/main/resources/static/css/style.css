@@ -4,6 +4,14 @@
 * {
 	box-sizing: border-box;
 }
+:root {
+	--primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	--secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	--success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	--dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+	--glass-bg: rgba(255, 255, 255, 0.5);
+	--glass-border: rgba(255, 255, 255, 0.18);
+}
 
 body {
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -17,6 +25,10 @@ body {
 	overflow-y: auto;
 	position: relative;
 }
+  h1 {
+        font-size: 2.2rem;
+    }
+
 
 /* Floating Emojis */
 .floating-element {
@@ -144,7 +156,7 @@ button {
 	border-radius: 20px;
 	border: none;
 	background-color: #6dd5ed;
-	background-image: linear-gradient(to right, #2193b0, #6dd5ed);
+    background-image: linear-gradient(to right, #45679d, #a224c3);
 	color: #fff;
 	font-size: 12px;
 	font-weight: bold;
@@ -153,11 +165,11 @@ button {
 	text-transform: uppercase;
 	transition: all 0.3s ease;
 	cursor: pointer;
+	margin-top: 5px;
 }
 
 button:hover {
 	transform: scale(1.05);
-	background-image: linear-gradient(to right, #6dd5ed, #2193b0);
 }
 
 button.ghost {
@@ -242,7 +254,7 @@ z-index
 }
 
 .overlay {
-	background: linear-gradient(to right, #11998e, #38ef7d);
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 	background-size: cover;
 	background-position: center;
 	color: white;
