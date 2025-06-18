@@ -15,7 +15,11 @@
 	content="black-translucent">
 
 <title>🕒 Time Path - Login & Registration</title>
-
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+	
 <!-- Google font Montserrat -->
 <link
 	href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800"
@@ -29,14 +33,14 @@
 	<div class="floating-element">📅</div>
 
 	<!-- Brand Logo -->
-	<div class="brand-logo">🕒 Time Path</div>
+	<div class="brand-logo">🕒 TimeTrek</div>
 
 	<div class="container ${showSignUp ? 'right-panel-active' : ''}" id="container">
 		<!-- Registration form -->
 		<div class="form-container sign-up-container">
 			<form:form action="/register" method="post" modelAttribute="newUser">
 				<h1>Create Account</h1>
-				<p>Join Time Path and start your journey</p>
+				<p>Join us and start your journey</p>
 
 				<form:input path="firstName" placeholder="First Name"
 					required="true" htmlEscape="false" />
@@ -99,6 +103,8 @@
 		</div>
 	</div>
 
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 		<script src="/js/script.js"></script>
 	
