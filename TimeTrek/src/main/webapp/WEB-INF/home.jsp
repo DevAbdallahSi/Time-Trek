@@ -69,8 +69,8 @@
 						minutes)</label> <input type="number" name="minutes" id="minutes"
 						class="form-control" placeholder="e.g., 10" required> <label
 						for="minutes" class="form-label"></label> <input type="text"
-						name="thought" class="form-control"
-						placeholder="What is on your mind?" required>
+
+						class="form-control" placeholder="what is on your mind" required name="status">
 				</div>
 
 
