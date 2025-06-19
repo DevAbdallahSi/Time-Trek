@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 
+
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -67,17 +68,44 @@ public class User {
 //    
     @OneToMany(mappedBy = "owner")
     private List<Goal> ownedGoals;
-//    
-//    @ManyToMany
-//    @JoinTable(
-//        name = "users_projects", // custom name of the join table 
-//        joinColumns = @JoinColumn(name = "user_id"), // FK to this entity
-//        inverseJoinColumns = @JoinColumn(name = "talk_id")) // FK to the other entity
-//    	private List<Talk> joinedTalks;
-//
+    
+    
+    @Transient
+    private Integer activeGoals;
+    @Transient
+	private Integer completedToday;
+    @Transient
+	private Integer minutesTracked;
+    @Transient
+	private Integer dayStreak;
+
 
 
     
+	public Integer getActiveGoals() {
+		return activeGoals;
+	}
+	public void setActiveGoals(Integer activeGoals) {
+		this.activeGoals = activeGoals;
+	}
+	public Integer getCompletedToday() {
+		return completedToday;
+	}
+	public void setCompletedToday(Integer completedToday) {
+		this.completedToday = completedToday;
+	}
+	public Integer getMinutesTracked() {
+		return minutesTracked;
+	}
+	public void setMinutesTracked(Integer minutesTracked) {
+		this.minutesTracked = minutesTracked;
+	}
+	public Integer getDayStreak() {
+		return dayStreak;
+	}
+	public void setDayStreak(Integer dayStreak) {
+		this.dayStreak = dayStreak;
+	}
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;

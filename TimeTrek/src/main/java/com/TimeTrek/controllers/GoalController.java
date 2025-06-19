@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 public class GoalController {
 	@Autowired
 	private GoalService goalservice;
+	
 
 	@GetMapping("/home")
 	public String home(HttpSession session, Model model) {
@@ -33,11 +34,11 @@ public class GoalController {
 	
 	@PostMapping("/suggest")
 	public String newSuggest(HttpSession session, Model model ) {
-//		User user = (User) session.getAttribute("loggedInUser");
-//		if (user == null) {
-//			session.invalidate(); // Clear the session if the user doesn't exist
-//			return "redirect:/";
-//		}
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			session.invalidate(); // Clear the session if the user doesn't exist
+			return "redirect:/";
+		}
 		
 		return "redirect:/result";
 		
@@ -52,9 +53,8 @@ public class GoalController {
 //			session.invalidate(); // Clear the session if the user doesn't exist
 //			return "redirect:/";
 //		}
-//
 //		model.addAttribute("user", user);
-
+//		model.addAttribute);
 		return "dashboard";
 	}
 	

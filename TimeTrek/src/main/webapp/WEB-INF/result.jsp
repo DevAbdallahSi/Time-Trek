@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Your Perfect Activity - Time Path</title>
-<!-- Meta tags for mobile optimization -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -21,13 +20,11 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-
-<!-- External CSS -->
 <link rel="stylesheet" href="/css/result.css">
-
 </head>
 
 <body>
+
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
@@ -39,11 +36,23 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">user
-							name</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">log
-							out</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+
+					<c:choose>
+						<c:when test="${not empty sessionScope.user}">
+							<li class="nav-item"><a class="nav-link" href="#">👤
+									${sessionScope.user.username}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/dashboard">📊
+									Dashboard</a></li>
+							<li class="nav-item"><a class="nav-link" href="/logout">🔓
+									Logout</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link" href="/login">🔐
+									Login & 📝 Register</a></li>
+
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -67,6 +76,8 @@
 						Based on your time and mood, here's your personalized suggestion:
 					</p>
 				</div>
+
+				<!-- Timer Widget -->
 				<div class="timer-widget">
 					<div class="timer-display" id="timer">${minutes}:00</div>
 					<div class="timer-label">⏰ Time Remaining</div>
@@ -78,21 +89,16 @@
 			<!-- Main AI Suggestion -->
 			<div class="ai-suggestion">
 				<div class="ai-icon">🎯</div>
-				<h2 class="ai-title">Perfect Match: Quick Meditation</h2>
-				<p class="ai-description">
-					Since you're feeling <strong>${mood}</strong> and have <strong>${minutes}
-						minutes</strong>, I recommend a guided breathing exercise. This will help
-					you reset your mental state, reduce stress, and give you a fresh
-					perspective. Find a comfortable spot, close your eyes, and focus on
-					deep, rhythmic breathing. Try the 4-7-8 technique: inhale for 4
-					counts, hold for 7, exhale for 8. This simple practice can
-					significantly improve your mood and energy levels.
-				</p>
+				<h2 class="ai-title">${suggestion.title}</h2>
+				<p class="ai-description">${suggestion.description}</p>
 			</div>
+
 			<!-- Action Buttons -->
 			<div class="action-buttons">
-				<button class="btn btn-action" onclick="completeActivity()">✅
-					Mark as Completed</button>
+				<c:if test="${not empty sessionScope.user}">
+					<button class="btn btn-action" onclick="completeActivity()">✅
+						Mark as Completed</button>
+				</c:if>
 				<button class="btn btn-action btn-secondary-action"
 					onclick="getNewSuggestion()">🔄 Get New Suggestion</button>
 				<a href="/" class="btn btn-action" style="text-decoration: none;">🏠
@@ -111,17 +117,19 @@
 		</div>
 	</footer>
 
-	<!-- Bootstrap Bundle JS -->
+	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	<!-- External JavaScript -->
+	<!-- JS Variables for Timer -->
 	<script>
 		window.initialMinutes = $
 		{
 			minutes
 		};
 	</script>
+
+	<!-- Custom JS -->
 	<script src="/js/result.js"></script>
 </body>
 </html>
