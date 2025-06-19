@@ -77,17 +77,7 @@
 
 			<!-- Main AI Suggestion -->
 			<div class="ai-suggestion">
-				<div class="ai-icon">🎯</div>
-				<h2 class="ai-title">Perfect Match: Quick Meditation</h2>
-				<p class="ai-description">
-					Since you're feeling <strong>${mood}</strong> and have <strong>${minutes}
-						minutes</strong>, I recommend a guided breathing exercise. This will help
-					you reset your mental state, reduce stress, and give you a fresh
-					perspective. Find a comfortable spot, close your eyes, and focus on
-					deep, rhythmic breathing. Try the 4-7-8 technique: inhale for 4
-					counts, hold for 7, exhale for 8. This simple practice can
-					significantly improve your mood and energy levels.
-				</p>
+				<p class="ai-description">${llmResponse}</p>
 			</div>
 			<!-- Action Buttons -->
 			<div class="action-buttons">
