@@ -39,11 +39,17 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
-					<!-- <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li> -->
-					<li class="nav-item"><a class="nav-link" href="#about">user
-							name</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">log
-							out</a></li>
+					<c:choose>
+						<c:when test="${not empty user}">
+							<li class="nav-item"><a class="nav-link" href="#">${user.firstName}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+							<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link" href="/login">🔐
+									Login & 📝 Register</a></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -63,8 +69,8 @@
 						minutes)</label> <input type="number" name="minutes" id="minutes"
 						class="form-control" placeholder="e.g., 10" required> <label
 						for="minutes" class="form-label"></label> <input type="text"
-						class="form-control" placeholder="what is on your mind" required name="status">
 
+						class="form-control" placeholder="what is on your mind" required name="status">
 				</div>
 
 

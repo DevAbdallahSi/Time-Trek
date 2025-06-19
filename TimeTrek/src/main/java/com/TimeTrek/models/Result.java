@@ -43,6 +43,8 @@ public class Result {
 	@NotBlank(message = "content: is required")
 	@Column(columnDefinition = "TEXT")
 	private String content;
+	
+	private Integer durationInMinutes;
 
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @NotNull(message = "Due date must be provided.")

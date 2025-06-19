@@ -304,9 +304,9 @@ translateX(
 
 /* Modern Footer */
 footer {
-	background: var(--dark-gradient);
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 	color: #fff;
-	padding: 2rem 0;
+	padding: 0.6rem 0;
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
 }

@@ -4,13 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isErrorPage="true"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Dashboard - Time Path</title>
-<!-- Meta tags for mobile optimization -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -22,8 +20,6 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-
-<!-- External CSS -->
 <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 
@@ -39,13 +35,19 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link active" href="#about">Dashboard</a></li>
-					    <li class="nav-item"><a class="nav-link" href="/schedule">Schedule</a></li> <!-- ✅ New -->
-					<li class="nav-item"><a class="nav-link" href="#about">John
-							Doe</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">Log
-							Out</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/result">🎯
+							Results</a></li>
+
+					<c:choose>
+						<c:when test="${not empty user}">
+							<li class="nav-item"><a class="nav-link disabled"
+								tabindex="-1" aria-disabled="true">👤
+									${user.firstName}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/logout">🔓
+									Log Out</a></li>
+						</c:when>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -57,7 +59,8 @@
 
 			<!-- Welcome Section -->
 			<div class="welcome-section">
-				<h1 class="welcome-title">👋 Welcome Back, John!</h1>
+				<h1 class="welcome-title">👋 Welcome Back,
+					${user.firstName}!</h1>
 				<p class="welcome-subtitle">Ready to make the most of your time
 					today?</p>
 			</div>
@@ -67,28 +70,28 @@
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">🎯</div>
-						<div class="stat-number">7</div>
+						<div class="stat-number">${user.activeGoals}</div>
 						<div class="stat-label">Active Goals</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">✅</div>
-						<div class="stat-number">24</div>
+						<div class="stat-number">${user.completedToday}</div>
 						<div class="stat-label">Completed Today</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">⏱️</div>
-						<div class="stat-number">156</div>
+						<div class="stat-number">${user.minutesTracked}</div>
 						<div class="stat-label">Minutes Tracked</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">🔥</div>
-						<div class="stat-number">12</div>
+						<div class="stat-number">${user.dayStreak}</div>
 						<div class="stat-label">Day Streak</div>
 					</div>
 				</div>
@@ -97,38 +100,16 @@
 			<!-- Day Summary Section -->
 			<div class="day-summary">
 				<h3 class="section-title">📅 Today's Summary</h3>
-
-				<div class="activity-item">
-					<div class="activity-title">🧘 Morning Meditation</div>
-					<div class="activity-details">
-						<span class="activity-time">08:30 AM - 08:45 AM</span> | Duration:
-						15 minutes | Status: ✅ Completed
+				<c:forEach var="item" items="${daySummaries}">
+					<div class="activity-item">
+						<div class="activity-title">${item.title}</div>
+						<div class="activity-details">
+							<span class="activity-time">${item.startTime} -
+								${item.endTime}</span> | Duration: ${item.duration} | Status:
+							${item.status}
+						</div>
 					</div>
-				</div>
-
-				<div class="activity-item">
-					<div class="activity-title">📚 Reading Session</div>
-					<div class="activity-details">
-						<span class="activity-time">10:15 AM - 11:00 AM</span> | Duration:
-						45 minutes | Status: ✅ Completed
-					</div>
-				</div>
-
-				<div class="activity-item">
-					<div class="activity-title">💪 Quick Workout</div>
-					<div class="activity-details">
-						<span class="activity-time">02:30 PM - 03:00 PM</span> | Duration:
-						30 minutes | Status: ✅ Completed
-					</div>
-				</div>
-
-				<div class="activity-item">
-					<div class="activity-title">🎨 Creative Writing</div>
-					<div class="activity-details">
-						<span class="activity-time">07:00 PM - 08:00 PM</span> | Duration:
-						60 minutes | Status: 🔄 In Progress
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 
 			<!-- Goals Section -->
@@ -140,73 +121,29 @@
 				</div>
 
 				<div id="goalsList">
-					<!-- Goal 1 -->
-					<div class="goal-item" data-goal-id="1">
-						<div class="goal-header">
-							<div class="goal-title">📖 Read 30 Minutes Daily</div>
-							<div class="goal-actions">
-								<button class="btn btn-glass btn-sm" onclick="editGoal(1)">✏️
-									Edit</button>
-								<button class="btn btn-glass btn-sm" onclick="deleteGoal(1)">🗑️
-									Delete</button>
+					<c:forEach var="goal" items="${goals}">
+						<div class="goal-item" data-goal-id="${goal.id}">
+							<div class="goal-header">
+								<div class="goal-title">${goal.icon}${goal.title}</div>
+								<div class="goal-actions">
+									<button class="btn btn-glass btn-sm"
+										onclick="editGoal(${goal.id})">✏️ Edit</button>
+									<button class="btn btn-glass btn-sm"
+										onclick="deleteGoal(${goal.id})">🗑️ Delete</button>
+								</div>
 							</div>
-						</div>
-						<div class="goal-description">Build a consistent reading
-							habit by dedicating 30 minutes each day to reading books that
-							inspire and educate.</div>
-						<div class="progress-bar-container">
-							<div class="progress-bar" style="width: 75%"></div>
-						</div>
-						<div class="progress-text">75% Complete (23/30 days)</div>
-					</div>
-
-					<!-- Goal 2 -->
-					<div class="goal-item" data-goal-id="2">
-						<div class="goal-header">
-							<div class="goal-title">🏃‍♂️ Exercise 5 Times Per Week</div>
-							<div class="goal-actions">
-								<button class="btn btn-glass btn-sm" onclick="editGoal(2)">✏️
-									Edit</button>
-								<button class="btn btn-glass btn-sm" onclick="deleteGoal(2)">🗑️
-									Delete</button>
+							<div class="goal-description">${goal.description}</div>
+							<div class="progress-bar-container">
+								<div class="progress-bar" style="width: ${goal.progress}%"></div>
 							</div>
+							<div class="progress-text">${goal.progress}%Complete
+								(${goal.completed}/${goal.target})</div>
 						</div>
-						<div class="goal-description">Stay physically active with
-							regular exercise sessions to improve health and energy levels.</div>
-						<div class="progress-bar-container">
-							<div class="progress-bar" style="width: 60%"></div>
-						</div>
-						<div class="progress-text">60% Complete (3/5 sessions this
-							week)</div>
-					</div>
-
-					<!-- Goal 3 -->
-					<div class="goal-item" data-goal-id="3">
-						<div class="goal-header">
-							<div class="goal-title">🧘 Daily Meditation Practice</div>
-							<div class="goal-actions">
-								<button class="btn btn-glass btn-sm" onclick="editGoal(3)">✏️
-									Edit</button>
-								<button class="btn btn-glass btn-sm" onclick="deleteGoal(3)">🗑️
-									Delete</button>
-							</div>
-						</div>
-						<div class="goal-description">Cultivate mindfulness and
-							reduce stress through daily meditation sessions.</div>
-						<div class="progress-bar-container">
-							<div class="progress-bar" style="width: 90%"></div>
-						</div>
-						<div class="progress-text">90% Complete (27/30 days)</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
-
 		</div>
 	</div>
-
-	<!-- Add/Edit Goal Modal -->
-	<!-- Goals Container -->
-	<div id="goalsContainer" class="container mt-4"></div>
 
 	<!-- Goal Modal -->
 	<div class="modal fade" id="goalModal" tabindex="-1"
@@ -252,9 +189,6 @@
 		</div>
 	</div>
 
-	
-
-
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
@@ -265,11 +199,9 @@
 		</div>
 	</footer>
 
-	<!-- Bootstrap Bundle JS -->
+	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/js/dashboard.js"></script>
-
-
 </body>
 </html>

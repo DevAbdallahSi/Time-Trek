@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class GoalController {
 	@Autowired
 	private GoalService goalservice;
+	
 
 	@GetMapping("/home")
 	public String home(HttpSession session, Model model) {
@@ -33,6 +34,7 @@ public class GoalController {
 	}
 	
 	@PostMapping("/suggest")
+
 	public String newSuggest(HttpSession session, Model model , @RequestParam String minutes,@RequestParam String status) {
 		User user = (User) session.getAttribute("loggedInUser");
 		if (user == null) {

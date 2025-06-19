@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Your Perfect Activity - Time Path</title>
-<!-- Meta tags for mobile optimization -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -21,13 +20,11 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-
-<!-- External CSS -->
 <link rel="stylesheet" href="/css/result.css">
-
 </head>
 
 <body>
+
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
@@ -39,11 +36,23 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">user
-							name</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">log
-							out</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+
+					<c:choose>
+						<c:when test="${not empty user}">
+							<li class="nav-item"><a class="nav-link" href="#">👤
+									${user.firstName}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/dashboard">📊
+									Dashboard</a></li>
+							<li class="nav-item"><a class="nav-link" href="/logout">🔓
+									Logout</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link" href="/login">🔐
+									Login & 📝 Register</a></li>
+
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -67,6 +76,8 @@
 						Based on your time and mood, here's your personalized suggestion:
 					</p>
 				</div>
+
+				<!-- Timer Widget -->
 				<div class="timer-widget">
 					<div class="timer-display" id="timer">${minutes}:00</div>
 					<div class="timer-label">⏰ Time Remaining</div>
@@ -77,12 +88,17 @@
 
 			<!-- Main AI Suggestion -->
 			<div class="ai-suggestion">
+
+				<h2 class="ai-title">${title}</h2>
 				<p class="ai-description">${llmResponse}</p>
 			</div>
+
 			<!-- Action Buttons -->
 			<div class="action-buttons">
-				<button class="btn btn-action" onclick="completeActivity()">✅
-					Mark as Completed</button>
+				<c:if test="${not empty user}">
+					<button class="btn btn-action" onclick="completeActivity()">✅
+						Mark as Completed</button>
+				</c:if>
 				<button class="btn btn-action btn-secondary-action"
 					onclick="getNewSuggestion()">🔄 Get New Suggestion</button>
 				<a href="/" class="btn btn-action" style="text-decoration: none;">🏠
@@ -101,17 +117,19 @@
 		</div>
 	</footer>
 
-	<!-- Bootstrap Bundle JS -->
+	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	<!-- External JavaScript -->
+	<!-- JS Variables for Timer -->
 	<script>
 		window.initialMinutes = $
 		{
 			minutes
 		};
 	</script>
+
+	<!-- Custom JS -->
 	<script src="/js/result.js"></script>
 </body>
 </html>

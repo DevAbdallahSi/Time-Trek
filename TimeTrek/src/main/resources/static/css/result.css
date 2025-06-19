@@ -47,12 +47,14 @@ body {
     background: var(--glass-bg);
     backdrop-filter: blur(15px);
     border-radius: 20px;
-    padding: 2rem;
+    padding-bottom: 80px;
     border: 1px solid var(--glass-border);
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
     flex: 1;
     min-width: 0;
 }
+
+
 
 .summary-badge {
     background: var(--success-gradient);
@@ -255,9 +257,9 @@ body {
 
 /* Footer */
 footer {
-    background: var(--dark-gradient);
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     color: #fff;
-    padding: 2rem 0;
+	padding: 0.6rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }

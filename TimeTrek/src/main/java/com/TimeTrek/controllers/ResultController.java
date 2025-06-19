@@ -26,5 +26,8 @@ public class ResultController {
 
 		return "result";
 	}
-	
+//	
+//	@GetMapping("/dashboard")
+//	public String dashboard()
+//	
 }

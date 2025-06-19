@@ -1,8 +1,5 @@
 package com.TimeTrek.services;
 
-
-
-
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -14,57 +11,59 @@ import com.TimeTrek.models.LoginUser;
 import com.TimeTrek.models.User;
 import com.TimeTrek.repositories.UserRepository;
 
-
-
-
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepo;
 
-    public User register(User newUser, BindingResult result) {
-        Optional<User> existingUser = userRepo.findByEmail(newUser.getEmail());
+	@Autowired
+	private UserRepository userRepo;
 
-        if(existingUser.isPresent()) {
-            result.rejectValue("email", "Unique", "This email is already registered!");
-        }
+	public User register(User newUser, BindingResult result) {
+		Optional<User> existingUser = userRepo.findByEmail(newUser.getEmail());
 
-        if(!newUser.getPassword().equals(newUser.getConfirm())) {
-            result.rejectValue("confirm", "Matches", "Passwords must match!");
-        }
+		if (existingUser.isPresent()) {
+			result.rejectValue("email", "Unique", "This email is already registered!");
+		}
 
-        if(result.hasErrors()) {
-            return null;
-        }
+		if (!newUser.getPassword().equals(newUser.getConfirm())) {
+			result.rejectValue("confirm", "Matches", "Passwords must match!");
+		}
 
-        String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
-        newUser.setPassword(hashed);
-        return userRepo.save(newUser);
-    }
+		if (result.hasErrors()) {
+			return null;
+		}
 
-    public User login(LoginUser newLogin, BindingResult result) {
-        Optional<User> potentialUser = userRepo.findByEmail(newLogin.getEmail());
+		String hashed = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
+		newUser.setPassword(hashed);
+		return userRepo.save(newUser);
+	}
 
-        if(!potentialUser.isPresent()) {
-            result.rejectValue("email", "NotFound", "email or password not correct");
-            return null;
-        }
+	public User login(LoginUser newLogin, BindingResult result) {
+		Optional<User> potentialUser = userRepo.findByEmail(newLogin.getEmail());
 
-        User user = potentialUser.get();
+		if (!potentialUser.isPresent()) {
+			result.rejectValue("email", "NotFound", "email or password not correct");
+			return null;
+		}
 
-        if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "Invalid", "email or password not correct");
-        }
+		User user = potentialUser.get();
 
-        if(result.hasErrors()) {
-            return null;
-        }
+		if (!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
+			result.rejectValue("password", "Invalid", "email or password not correct");
+		}
 
-        return user;
-    }
+		if (result.hasErrors()) {
+			return null;
+		}
 
-    public User findUserById(Long id) {
-        return userRepo.findById(id).orElse(null);
-    }
+		return user;
+	}
+	
+	public void updateInfo() {
+		
+	}
+
+	public User findUserById(Long id) {
+		return userRepo.findById(id).orElse(null);
+	}
 }
