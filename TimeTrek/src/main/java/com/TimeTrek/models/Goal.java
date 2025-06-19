@@ -1,35 +1,20 @@
 package com.TimeTrek.models;
 
-
-
-
-
-import java.time.LocalDate;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -50,25 +35,19 @@ public class Goal {
     @Size(min = 21, max = 500, message = "Description: must be between 20 and 500 characters")
     private String details;
 
-
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @NotNull(message = "Due date must be provided.")
-//    @FutureOrPresent(message = "Due date must not be in the past.")
-//    private LocalDate date;
-    
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
     
     
-//    @ManyToMany
-//    @JoinTable(
-//        name = "users_projects", // custom name of the join table
-//        joinColumns = @JoinColumn(name = "talk_id"), // FK to this entity
-//        inverseJoinColumns = @JoinColumn(name = "user_id") // FK to the other entity
-//    )
-//    private List<User> members= new ArrayList<>();
-
+    public Goal() {}
+    
+    public Goal(String title, String details,User user) {
+    	this.title = title;
+    	this.details = details;
+    	this.owner=user;
+    }
+    
     
 	public User getOwner() {
 		return owner;
@@ -88,12 +67,6 @@ public class Goal {
     private Date updatedAt;
 
     // Constructors
-    public Goal() {}
-
-    public Goal(String title, String details) {
-        this.title = title;
-        this.details = details;
-    }
 
     
     

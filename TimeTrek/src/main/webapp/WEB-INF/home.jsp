@@ -46,7 +46,7 @@
 							<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/login">🔐
+							<li class="nav-item"><a class="nav-link" href="/join">🔐
 									Login & 📝 Register</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -70,7 +70,7 @@
 						class="form-control" placeholder="e.g., 10" required> <label
 						for="minutes" class="form-label"></label> <input type="text"
 
-						class="form-control" placeholder="what is on your mind" required name="status">
+						class="form-control" placeholder="what is on your mind" name="status">
 				</div>
 
 
