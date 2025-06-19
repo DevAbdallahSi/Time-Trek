@@ -58,6 +58,10 @@ public class UserService {
 
 		return user;
 	}
+	
+	public void updateInfo() {
+		
+	}
 
 	public User findUserById(Long id) {
 		return userRepo.findById(id).orElse(null);

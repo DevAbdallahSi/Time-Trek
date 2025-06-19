@@ -40,10 +40,10 @@
 							Results</a></li>
 
 					<c:choose>
-						<c:when test="${not empty sessionScope.user}">
+						<c:when test="${not empty user}">
 							<li class="nav-item"><a class="nav-link disabled"
 								tabindex="-1" aria-disabled="true">👤
-									${sessionScope.user.username}</a></li>
+									${user.firstName}</a></li>
 							<li class="nav-item"><a class="nav-link" href="/logout">🔓
 									Log Out</a></li>
 						</c:when>
@@ -60,7 +60,7 @@
 			<!-- Welcome Section -->
 			<div class="welcome-section">
 				<h1 class="welcome-title">👋 Welcome Back,
-					${sessionScope.user.username}!</h1>
+					${user.firstName}!</h1>
 				<p class="welcome-subtitle">Ready to make the most of your time
 					today?</p>
 			</div>
