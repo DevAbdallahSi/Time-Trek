@@ -23,7 +23,7 @@ public class IndexController {
 //     @Autowired
 //     private Services talkServices;
 
-     @GetMapping("/")
+     @GetMapping("/join")
      public String index(Model model) {
          model.addAttribute("newUser", new User());
          model.addAttribute("newLogin", new LoginUser());
@@ -42,7 +42,7 @@ public class IndexController {
         }
  
         session.setAttribute("loggedInUser", registeredUser);
-        return "redirect:/home";
+        return "redirect:/";
     }
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin,
@@ -56,11 +56,12 @@ public class IndexController {
         }
  
         session.setAttribute("loggedInUser", user);
-        return "redirect:/home";
+        return "redirect:/";
     }
+    
 
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // Destroys the entire session
         return "redirect:/";  // Redirect to login/registration page

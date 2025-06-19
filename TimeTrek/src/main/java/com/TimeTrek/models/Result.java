@@ -36,32 +36,21 @@ public class Result {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//    @NotBlank(message = "status is required")
-
-	private boolean status;
+	private String mood;
+	
+	private boolean completed;
+	
+	private String status;
 
 	@NotBlank(message = "content: is required")
 	@Column(columnDefinition = "TEXT")
 	private String content;
-	
-	private Integer durationInMinutes;
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @NotNull(message = "Due date must be provided.")
-//    @FutureOrPresent(message = "Due date must not be in the past.")
-//    private LocalDate date;
+	private Integer minutes;
 
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	private User owner;
-
-//    @ManyToMany
-//    @JoinTable(
-//        name = "users_projects", // custom name of the join table
-//        joinColumns = @JoinColumn(name = "talk_id"), // FK to this entity
-//        inverseJoinColumns = @JoinColumn(name = "user_id") // FK to the other entity
-//    )
-//    private List<User> members= new ArrayList<>();
 
 	public User getOwner() {
 		return owner;
@@ -82,9 +71,46 @@ public class Result {
 	public Result() {
 	}
 
-	public Result(boolean status, String content) {
+
+	public Result(String mood, String status, String content, User owner,Integer minutes) {
+		this.mood = mood;
 		this.status = status;
 		this.content = content;
+		this.owner = owner;
+		this.minutes=minutes;
+	}
+
+	public String getMood() {
+		return mood;
+	}
+
+	public void setMood(String mood) {
+		this.mood = mood;
+	}
+
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public Integer getMinutes() {
+		return minutes;
+	}
+
+	public void setMinutes(Integer minutes) {
+		this.minutes = minutes;
 	}
 
 	public Long getId() {
@@ -95,13 +121,7 @@ public class Result {
 		this.id = id;
 	}
 
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+	
 
 	public String getContent() {
 		return content;

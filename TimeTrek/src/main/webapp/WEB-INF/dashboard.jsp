@@ -36,14 +36,10 @@
 				id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/result">🎯
-							Results</a></li>
-
 					<c:choose>
 						<c:when test="${not empty user}">
 							<li class="nav-item"><a class="nav-link disabled"
-								tabindex="-1" aria-disabled="true">👤
-									${user.firstName}</a></li>
+								tabindex="-1" aria-disabled="true">👤 ${user.firstName}</a></li>
 							<li class="nav-item"><a class="nav-link" href="/logout">🔓
 									Log Out</a></li>
 						</c:when>
@@ -59,8 +55,7 @@
 
 			<!-- Welcome Section -->
 			<div class="welcome-section">
-				<h1 class="welcome-title">👋 Welcome Back,
-					${user.firstName}!</h1>
+				<h1 class="welcome-title">👋 Welcome Back, ${user.firstName}!</h1>
 				<p class="welcome-subtitle">Ready to make the most of your time
 					today?</p>
 			</div>
@@ -121,10 +116,10 @@
 				</div>
 
 				<div id="goalsList">
-					<c:forEach var="goal" items="${goals}">
+					<c:forEach var="goal" items="${user.ownedGoals}">
 						<div class="goal-item" data-goal-id="${goal.id}">
 							<div class="goal-header">
-								<div class="goal-title">${goal.icon}${goal.title}</div>
+								<div class="goal-title">${goal.title}</div>
 								<div class="goal-actions">
 									<button class="btn btn-glass btn-sm"
 										onclick="editGoal(${goal.id})">✏️ Edit</button>
@@ -132,12 +127,7 @@
 										onclick="deleteGoal(${goal.id})">🗑️ Delete</button>
 								</div>
 							</div>
-							<div class="goal-description">${goal.description}</div>
-							<div class="progress-bar-container">
-								<div class="progress-bar" style="width: ${goal.progress}%"></div>
-							</div>
-							<div class="progress-text">${goal.progress}%Complete
-								(${goal.completed}/${goal.target})</div>
+							<div class="goal-description">${goal.details}</div>
 						</div>
 					</c:forEach>
 				</div>
@@ -155,35 +145,27 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
+
 				<div class="modal-body">
-					<form id="goalForm">
-						<div class="mb-3">
-							<label for="goalIcon" class="form-label">Icon</label> <input
-								type="text" class="form-control" id="goalIcon"
-								placeholder="e.g., 📖">
-						</div>
+					<form id="goalForm" action="/newGoal" method="POST">
+
 						<div class="mb-3">
 							<label for="goalTitle" class="form-label">Title</label> <input
-								type="text" class="form-control" id="goalTitle"
+								type="text" class="form-control" id="goalTitle" name="title"
 								placeholder="Enter goal title">
 						</div>
 						<div class="mb-3">
 							<label for="goalDescription" class="form-label">Description</label>
 							<textarea class="form-control" id="goalDescription"
-								placeholder="Enter goal description"></textarea>
+								name="description" placeholder="Enter goal description"></textarea>
 						</div>
-						<div class="mb-3">
-							<label for="goalTarget" class="form-label">Target</label> <input
-								type="number" class="form-control" id="goalTarget"
-								placeholder="Enter target value">
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-submit">NewGoal</button>
 						</div>
 					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="saveGoal()">Save
-						Goal</button>
 				</div>
 			</div>
 		</div>
