@@ -40,8 +40,8 @@
 				id="navbarNav">
 				<ul class="navbar-nav">
 					<c:choose>
-						<c:when test="${not empty sessionScope.user}">
-							<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a></li>
+						<c:when test="${not empty user}">
+							<li class="nav-item"><a class="nav-link" href="#">${user.firstName}</a></li>
 							<li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
 							<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 						</c:when>

@@ -79,7 +79,7 @@ public class User {
     @Transient
 	private Integer dayStreak;
 
-
+    
 
     
 	public Integer getActiveGoals() {

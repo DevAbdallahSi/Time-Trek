@@ -39,9 +39,9 @@
 					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
 
 					<c:choose>
-						<c:when test="${not empty sessionScope.user}">
+						<c:when test="${not empty user}">
 							<li class="nav-item"><a class="nav-link" href="#">👤
-									${sessionScope.user.username}</a></li>
+									${user.firstName}</a></li>
 							<li class="nav-item"><a class="nav-link" href="/dashboard">📊
 									Dashboard</a></li>
 							<li class="nav-item"><a class="nav-link" href="/logout">🔓
@@ -89,13 +89,13 @@
 			<!-- Main AI Suggestion -->
 			<div class="ai-suggestion">
 				<div class="ai-icon">🎯</div>
-				<h2 class="ai-title">${suggestion.title}</h2>
-				<p class="ai-description">${suggestion.description}</p>
+				<h2 class="ai-title">${title}</h2>
+				<p class="ai-description">${llmResponse}</p>
 			</div>
 
 			<!-- Action Buttons -->
 			<div class="action-buttons">
-				<c:if test="${not empty sessionScope.user}">
+				<c:if test="${not empty user}">
 					<button class="btn btn-action" onclick="completeActivity()">✅
 						Mark as Completed</button>
 				</c:if>
