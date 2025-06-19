@@ -4,6 +4,7 @@
 * {
 	box-sizing: border-box;
 }
+
 :root {
 	--primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	--secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -16,19 +17,20 @@
 body {
 	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	flex-direction: column;
+	align-items: center;
 	font-family: "Montserrat", sans-serif;
-	height: 100vh;
+	min-height: 100vh;
 	margin: 0;
+	padding-top: 140px; /* Space for logo */
+	overflow-x: hidden;
 	overflow-y: auto;
 	position: relative;
 }
-  h1 {
-        font-size: 2.2rem;
-    }
 
+h1 {
+	font-size: 2.2rem;
+}
 
 /* Floating Emojis */
 .floating-element {
@@ -63,25 +65,38 @@ body {
 50%
 {
 transform
+
+
 :
-translateY(
+
+
+translateY
+(
+
+
 -20px
-);
+
+
+)
+;
+
+
 }
 100%
 {
 transform
+
+
 :
-translateY(
-0
-);
-}
+
+
+translateY(0);}
 }
 
 /* Glassy Logo */
 .brand-logo {
-	position: absolute;
-	top: 30px;
+	position: fixed;
+	top: 20px;
 	left: 50%;
 	transform: translateX(-50%);
 	font-size: 1.5rem;
@@ -92,6 +107,7 @@ translateY(
 	border-radius: 30px;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	text-shadow: 0 0 2px #000;
+	z-index: 1000;
 }
 
 .input-group {
@@ -103,7 +119,7 @@ translateY(
 .text-danger {
 	font-size: 0.8rem;
 	color: #36f9ce;
-	height: 8px; /* ✅ Reserve space even if there's no error */
+	height: 8px;
 	display: block;
 	margin-top: 4px;
 }
@@ -115,13 +131,13 @@ translateY(
 	border-radius: 20px;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 	position: relative;
-	overflow: hidden;
 	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
+	max-width: 90%;
+	min-height: 500px;
 	border: 1px solid rgba(255, 255, 255, 0.2);
-	height: 600px;
-	overflow: auto;
+	padding: 30px 20px;
+	margin-bottom: 60px;
+	overflow: hidden; /* ✅ Important! */
 }
 
 /* Forms */
@@ -155,8 +171,7 @@ input::placeholder {
 button {
 	border-radius: 20px;
 	border: none;
-	background-color: #6dd5ed;
-    background-image: linear-gradient(to right, #45679d, #a224c3);
+	background-image: linear-gradient(to right, #45679d, #a224c3);
 	color: #fff;
 	font-size: 12px;
 	font-weight: bold;
@@ -187,7 +202,6 @@ button.ghost {
 	top: 0;
 	width: 50%;
 	min-height: 100%;
-	height: auto;
 	transition: all 0.6s ease-in-out;
 }
 
@@ -195,7 +209,6 @@ button.ghost {
 	left: 0;
 	width: 50%;
 	z-index: 2;
-	height: auto;
 }
 
 .sign-up-container {
@@ -203,7 +216,6 @@ button.ghost {
 	top: 0;
 	left: 0;
 	width: 50%;
-	height: auto;
 	opacity: 0;
 	z-index: 1;
 	transform: translateX(-100%);
@@ -227,13 +239,25 @@ button.ghost {
 100%
 {
 opacity
+
+
 :
+
+
 1
 ;
+
+
 z-index
+
+
 :
+
+
 5
 ;
+
+
 }
 }
 
@@ -306,7 +330,7 @@ z-index
 .text-danger {
 	font-size: 0.8rem;
 	color: #ff4b2b;
-	min-height: 18px; /* ✅ Always reserves space */
+	min-height: 18px;
 	display: block;
 	margin-top: 4px;
 	margin-bottom: 8px;
@@ -315,4 +339,32 @@ z-index
 /* Footer */
 footer {
 	display: none;
+}
+
+/* Responsive Fix */
+@media ( max-width : 768px) {
+	body {
+		padding-top: 100px;
+	}
+	.brand-logo {
+		font-size: 1rem;
+		padding: 6px 15px;
+		top: 10px;
+	}
+	.container {
+		width: 95%;
+		margin-top: 20px;
+	}
+	.form-container, .sign-in-container, .sign-up-container,
+		.overlay-container, .overlay, .overlay-panel {
+		width: 100%;
+		position: relative;
+		transform: none !important;
+		opacity: 1 !important;
+		z-index: 1 !important;
+		transition: none;
+	}
+	form {
+		padding: 20px;
+	}
 }
