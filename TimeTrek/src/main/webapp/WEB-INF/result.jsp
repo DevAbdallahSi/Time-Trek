@@ -88,7 +88,7 @@
 
 			<!-- Main AI Suggestion -->
 			<div class="ai-suggestion">
-				<div class="ai-icon">🎯</div>
+
 				<h2 class="ai-title">${title}</h2>
 				<p class="ai-description">${llmResponse}</p>
 			</div>
