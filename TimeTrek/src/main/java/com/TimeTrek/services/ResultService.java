@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.TimeTrek.models.Result;
+import com.TimeTrek.models.User;
 import com.TimeTrek.repositories.ResultRepository;
 
 @Service
@@ -44,5 +45,21 @@ public class ResultService {
     // Optional: Get all results by user (owner)
     public List<Result> getResultsByUserId(Long userId) {
         return resultRepo.findByOwnerId(userId);
+    }
+    
+    public void complete(Long Id) {
+    	Result existingResult = resultRepo.findById(Id).orElse(null);
+		if (existingResult == null)
+			return ;
+
+		// Only update allowed fields (e.g. title, description, dueDate)
+		existingResult.setCompleted(!existingResult.isCompleted());
+		
+
+		// DO NOT change the owner here unless you're allowing ownership transfers
+		// DO NOT re-add the user to members if he's already in
+
+		 resultRepo.save(existingResult);
+    	
     }
 }

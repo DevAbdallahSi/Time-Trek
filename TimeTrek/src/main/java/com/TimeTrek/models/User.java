@@ -70,8 +70,18 @@ public class User {
     @OneToMany(mappedBy = "owner" ,fetch = FetchType.EAGER )
     private List<Goal> ownedGoals;
     
+    @OneToMany(mappedBy = "owner" ,fetch = FetchType.EAGER )
+    private List<Result> ownedResults;
     
-    @Transient
+    
+    public List<Result> getOwnedResults() {
+		return ownedResults;
+	}
+	public void setOwnedResults(List<Result> ownedResults) {
+		this.ownedResults = ownedResults;
+	}
+
+	@Transient
     private Integer activeGoals;
     @Transient
 	private Integer completedToday;

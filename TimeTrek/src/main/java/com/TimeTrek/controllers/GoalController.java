@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,9 +53,13 @@ public class GoalController {
 		}
 		model.addAttribute("user", user);
 		model.addAttribute("goal", new Goal());
-
+		model.addAttribute("ownedGoals",goalservice.findGoalByOwnerID(user.getId()));
+		model.addAttribute("activeGoals",goalservice.findGoalByOwnerID(user.getId()).size());
 		return "dashboard";
 	}
+	
+	
+	
 
 	@PostMapping("/newGoal")
 	public String createGoal(@Valid @ModelAttribute("goal") Goal goal, HttpSession session, BindingResult result,
@@ -65,13 +71,30 @@ public class GoalController {
 		}
 		if (result.hasErrors()) {
 			model.addAttribute("user", user); // in case the dashboard needs it
+			model.addAttribute("goal", goal); // send back goal with errors
+			model.addAttribute("showGoalModal", true);
 			return "dashboard";
 		}
 
-		goal.setOwner(user); 
-	    goalservice.createGoal(goal);
-	    session.setAttribute("loggedInUser", userService.findUserById(user.getId()));
+		goal.setOwner(user);
+		goalservice.createGoal(goal);
+		session.setAttribute("loggedInUser", userService.findUserById(user.getId()));
+		return "redirect:/dashboard";
+	}
+
+	
+	
+	@DeleteMapping("/deleteGoal/{goalId}")
+	public String deleteProject(@PathVariable("goalId") Long goalId, HttpSession session) {
+	    User user = (User) session.getAttribute("loggedInUser");
+	    if (user == null) {
+			session.invalidate(); // Clear the session if the user doesn't exist
+	        return "redirect:/";
+	    }
+
+	    goalservice.deleteGoal(goalId);
 	    return "redirect:/dashboard";
 	}
+
 
 }

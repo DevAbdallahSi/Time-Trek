@@ -72,6 +72,11 @@
 							available</span> <span class="summary-badge">🧠 Feeling
 							${result.mood}</span>
 					</div>
+					<c:if test="${not empty result.status}">
+						<p
+							style="color: rgba(255, 255, 255, 0.9); margin-top: 1rem; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+							You said: ${result.status}</p>
+					</c:if>
 					<p
 						style="color: rgba(255, 255, 255, 0.9); margin-top: 1rem; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
 						Based on your time and mood, here's your personalized suggestion:
@@ -99,16 +104,30 @@
 			</div>
 
 			<!-- Action Buttons -->
-			<div class="action-buttons">
+			<div
+				class="action-buttons d-flex justify-content-center gap-3 align-items-center flex-wrap mt-3">
 				<c:if test="${not empty user}">
-					<button class="btn btn-action" onclick="completeActivity()">✅
-						Mark as Completed</button>
+					<!-- ✅ Mark as Completed Button -->
+					<a href="/complete/${result.id}"
+						class="btn btn-action text-light d-flex align-items-center"> ✅
+						Mark as Completed </a>
 				</c:if>
-				<button class="btn btn-action btn-secondary-action"
-					onclick="getNewSuggestion()">🔄 Get New Suggestion</button>
-				<a href="/" class="btn btn-action" style="text-decoration: none;">🏠
-					Back to Home</a>
+
+				<!-- 🔄 Get New Suggestion Form -->
+				<form action="/suggest" method="POST" class="d-inline">
+					<input type="hidden" name="minutes" value="${result.minutes}" /> <input
+						type="hidden" name="status" value="${result.status}" /> <input
+						type="hidden" name="mood" value="${result.mood}" />
+					<button type="submit" class="btn btn-action btn-secondary-action">
+						🔄 Get New Suggestion</button>
+				</form>
+
+				<!-- 🏠 Back to Home Button -->
+				<a href="/" class="btn btn-action" style="text-decoration: none;">
+					🏠 Back to Home </a>
 			</div>
+
+
 		</div>
 	</div>
 

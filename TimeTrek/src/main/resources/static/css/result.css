@@ -38,7 +38,7 @@ body {
 .side-by-side {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 20px;
     margin-bottom: 2rem;
 }

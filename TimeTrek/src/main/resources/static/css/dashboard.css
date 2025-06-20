@@ -162,13 +162,17 @@ translateY(
 	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
 }
  .stat-card {
-            background: #f0f0f0;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    margin-bottom: 1rem;
+}
         .stat-icon {
             font-size: 28px;
             margin-bottom: 10px;
