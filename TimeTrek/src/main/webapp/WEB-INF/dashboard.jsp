@@ -20,6 +20,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- FullCalendar CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css"
+	rel="stylesheet" />
 <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 
@@ -32,6 +36,7 @@
 				data-bs-toggle="collapse" data-bs-target="#navbarNav">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
@@ -46,144 +51,174 @@
 					</c:choose>
 				</ul>
 			</div>
+
 		</div>
 	</nav>
+	<div class="container mt-4">
+		<h2 class="mb-4">📅 My Schedule</h2>
+		<div id="calendar"></div>
 
-	<!-- Dashboard Container -->
-	<div class="dashboard-container">
-		<div class="container">
+		<!-- Add Event Form -->
+		<div class="mt-4">
+			<h4>Add New Event</h4>
+			<form id="eventForm">
+				<div class="mb-3">
+					<label for="evTitle" class="form-label">Title</label> <input
+						type="text" class="form-control" id="evTitle" required>
+				</div>
+				<div class="mb-3">
+					<label for="evStart" class="form-label">Start</label> <input
+						type="datetime-local" class="form-control" id="evStart" required>
+				</div>
+				<div class="mb-3">
+					<label for="evEnd" class="form-label">End</label> <input
+						type="datetime-local" class="form-control" id="evEnd" required>
+				</div>
+				<button type="submit" class="btn btn-primary">Add Event</button>
+			</form>
+		</div>
 
-			<!-- Welcome Section -->
-			<div class="welcome-section">
-				<h1 class="welcome-title">👋 Welcome Back, ${user.firstName}!</h1>
-				<p class="welcome-subtitle">Ready to make the most of your time
-					today?</p>
-			</div>
+		<!-- Dashboard Container -->
+		<div class="dashboard-container">
+			<div class="container">
 
-			<!-- Stats Row -->
-			<div class="row stats-row">
-				<div class="col-md-3">
-					<div class="stat-card">
-						<div class="stat-icon">🎯</div>
-						<div class="stat-number">${user.activeGoals}</div>
-						<div class="stat-label">Active Goals</div>
-					</div>
+				<!-- Welcome Section -->
+				<div class="welcome-section">
+					<h1 class="welcome-title">👋 Welcome Back, ${user.firstName}!</h1>
+					<p class="welcome-subtitle">Ready to make the most of your time
+						today?</p>
 				</div>
-				<div class="col-md-3">
-					<div class="stat-card">
-						<div class="stat-icon">✅</div>
-						<div class="stat-number">${user.completedToday}</div>
-						<div class="stat-label">Completed Today</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="stat-card">
-						<div class="stat-icon">⏱️</div>
-						<div class="stat-number">${user.minutesTracked}</div>
-						<div class="stat-label">Minutes Tracked</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="stat-card">
-						<div class="stat-icon">🔥</div>
-						<div class="stat-number">${user.dayStreak}</div>
-						<div class="stat-label">Day Streak</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- Day Summary Section -->
-			<div class="day-summary">
-				<h3 class="section-title">📅 Today's Summary</h3>
-				<c:forEach var="item" items="${daySummaries}">
-					<div class="activity-item">
-						<div class="activity-title">${item.title}</div>
-						<div class="activity-details">
-							<span class="activity-time">${item.startTime} -
-								${item.endTime}</span> | Duration: ${item.duration} | Status:
-							${item.status}
+				<!-- Stats Row -->
+				<div class="row stats-row">
+					<div class="col-md-3">
+						<div class="stat-card">
+							<div class="stat-icon">🎯</div>
+							<div class="stat-number">${user.activeGoals}</div>
+							<div class="stat-label">Active Goals</div>
 						</div>
 					</div>
-				</c:forEach>
-			</div>
-
-			<!-- Goals Section -->
-			<div class="goals-section">
-				<div class="d-flex justify-content-between align-items-center mb-4">
-					<h3 class="section-title mb-0">🎯 Personal Goals</h3>
-					<button class="btn btn-action btn-success"
-						onclick="showAddGoalModal()">➕ Add New Goal</button>
+					<div class="col-md-3">
+						<div class="stat-card">
+							<div class="stat-icon">✅</div>
+							<div class="stat-number">${user.completedToday}</div>
+							<div class="stat-label">Completed Today</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="stat-card">
+							<div class="stat-icon">⏱️</div>
+							<div class="stat-number">${user.minutesTracked}</div>
+							<div class="stat-label">Minutes Tracked</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="stat-card">
+							<div class="stat-icon">🔥</div>
+							<div class="stat-number">${user.dayStreak}</div>
+							<div class="stat-label">Day Streak</div>
+						</div>
+					</div>
 				</div>
 
-				<div id="goalsList">
-					<c:forEach var="goal" items="${user.ownedGoals}">
-						<div class="goal-item" data-goal-id="${goal.id}">
-							<div class="goal-header">
-								<div class="goal-title">${goal.title}</div>
-								<div class="goal-actions">
-									<button class="btn btn-glass btn-sm"
-										onclick="editGoal(${goal.id})">✏️ Edit</button>
-									<button class="btn btn-glass btn-sm"
-										onclick="deleteGoal(${goal.id})">🗑️ Delete</button>
-								</div>
+				<!-- Day Summary Section -->
+				<div class="day-summary">
+					<h3 class="section-title">📅 Today's Summary</h3>
+					<c:forEach var="item" items="${daySummaries}">
+						<div class="activity-item">
+							<div class="activity-title">${item.title}</div>
+							<div class="activity-details">
+								<span class="activity-time">${item.startTime} -
+									${item.endTime}</span> | Duration: ${item.duration} | Status:
+								${item.status}
 							</div>
-							<div class="goal-description">${goal.details}</div>
 						</div>
 					</c:forEach>
 				</div>
-			</div>
-		</div>
-	</div>
 
-	<!-- Goal Modal -->
-	<div class="modal fade" id="goalModal" tabindex="-1"
-		aria-labelledby="goalModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="goalModalTitle"></h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
+				<!-- Goals Section -->
+				<div class="goals-section">
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h3 class="section-title mb-0">🎯 Personal Goals</h3>
+						<button class="btn btn-action btn-success"
+							onclick="showAddGoalModal()">➕ Add New Goal</button>
+					</div>
 
-				<div class="modal-body">
-					<form id="goalForm" action="/newGoal" method="POST">
-
-						<div class="mb-3">
-							<label for="goalTitle" class="form-label">Title</label> <input
-								type="text" class="form-control" id="goalTitle" name="title"
-								placeholder="Enter goal title">
-						</div>
-						<div class="mb-3">
-							<label for="goalDescription" class="form-label">Description</label>
-							<textarea class="form-control" id="goalDescription"
-								name="description" placeholder="Enter goal description"></textarea>
-						</div>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-submit">NewGoal</button>
-						</div>
-					</form>
+					<div id="goalsList">
+						<c:forEach var="goal" items="${user.ownedGoals}">
+							<div class="goal-item" data-goal-id="${goal.id}">
+								<div class="goal-header">
+									<div class="goal-title">${goal.title}</div>
+									<div class="goal-actions">
+										<button class="btn btn-glass btn-sm"
+											onclick="deleteGoal(${goal.id})">🗑️ Delete</button>
+									</div>
+								</div>
+								<div class="goal-description">${goal.details}</div>
+							</div>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Footer -->
-	<footer class="text-center">
-		<div class="container">
-			<p class="mb-1">© 2025 Time Path. All rights reserved.</p>
-			<a href="#" class="text-light">GitHub</a> | <a href="#"
-				class="text-light">Privacy Policy</a> | <a href="#"
-				class="text-light">Terms of Service</a>
+		<!-- Goal Modal -->
+		<div class="modal fade" id="goalModal" tabindex="-1"
+			aria-labelledby="goalModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="goalModalTitle"></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<form:form id="goalForm" modelAttribute="goal" action="/newGoal"
+							method="POST">
+							<div class="mb-3">
+								<label for="goalTitle" class="form-label">Title</label>
+								<form:input path="title" cssClass="form-control" id="goalTitle"
+									placeholder="Enter goal title" />
+								<form:errors path="title" cssClass="text-danger" />
+							</div>
+
+							<div class="mb-3">
+								<label for="goalDescription" class="form-label">Description</label>
+								<form:textarea path="description" cssClass="form-control"
+									id="goalDescription" placeholder="Enter goal description" />
+								<form:errors path="description" cssClass="text-danger" />
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-submit">NewGoal</button>
+							</div>
+						</form:form>
+
+					</div>
+				</div>
+			</div>
 		</div>
-	</footer>
 
-	<!-- Bootstrap JS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="/js/dashboard.js"></script>
+
+		<!-- Footer -->
+		<footer class="text-center">
+			<div class="container">
+				<p class="mb-1">© 2025 Time Path. All rights reserved.</p>
+				<a href="#" class="text-light">GitHub</a> | <a href="#"
+					class="text-light">Privacy Policy</a> | <a href="#"
+					class="text-light">Terms of Service</a>
+			</div>
+		</footer>
+
+		<!-- Bootstrap JS -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="/js/dashboard.js"></script>
+		<!-- FullCalendar JS -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
 </body>
 </html>
