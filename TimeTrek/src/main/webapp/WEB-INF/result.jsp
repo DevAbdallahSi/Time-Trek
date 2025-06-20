@@ -48,7 +48,7 @@
 									Logout</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/login">🔐
+							<li class="nav-item"><a class="nav-link" href="/join">🔐
 									Login & 📝 Register</a></li>
 
 						</c:otherwise>
@@ -68,8 +68,9 @@
 						style="color: white; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-bottom: 1rem;">
 						📋 Your Request</h3>
 					<div>
-						<span class="summary-badge">⏱️ ${minutes} minutes available</span>
-						<span class="summary-badge">🧠 Feeling ${mood}</span>
+						<span class="summary-badge">⏱️ ${result.minutes} minutes
+							available</span> <span class="summary-badge">🧠 Feeling
+							${result.mood}</span>
 					</div>
 					<p
 						style="color: rgba(255, 255, 255, 0.9); margin-top: 1rem; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
@@ -79,18 +80,22 @@
 
 				<!-- Timer Widget -->
 				<div class="timer-widget">
-					<div class="timer-display" id="timer">${minutes}:00</div>
+					<div class="timer-display" id="timer"
+						data-minutes="${result.minutes}">${result.minutes}:00</div>
+
 					<div class="timer-label">⏰ Time Remaining</div>
+
 					<button class="btn btn-light mt-3" onclick="startTimer()"
 						id="timerBtn">▶️ Start Timer</button>
 				</div>
+
 			</div>
 
 			<!-- Main AI Suggestion -->
 			<div class="ai-suggestion">
 
 				<h2 class="ai-title">${title}</h2>
-				<p class="ai-description">${llmResponse}</p>
+				<p class="ai-description">${result.content}</p>
 			</div>
 
 			<!-- Action Buttons -->

@@ -16,6 +16,9 @@ public interface ResultRepository extends CrudRepository<Result, Long> {
 //	    Long countCompletedToday(@Param("userId") Long userId);
 //	  @Query("SELECT r FROM Result r WHERE r.owner.id = :userId AND FUNCTION('DATE', r.startTime) = CURRENT_DATE")
 //	  List<Result> findTodayResults(@Param("userId") Long userId);
+	List<Result> findAll();
 
+	// Custom finder
+	List<Result> findByOwnerId(Long ownerId);
 
 }

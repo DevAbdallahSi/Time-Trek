@@ -1,11 +1,48 @@
 package com.TimeTrek.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-@Service
+import com.TimeTrek.models.Result;
+import com.TimeTrek.repositories.ResultRepository;
 
+@Service
 public class ResultService {
 
-	
+    private final ResultRepository resultRepo;
 
+    public ResultService(ResultRepository resultRepo) {
+        this.resultRepo = resultRepo;
+    }
+
+    // CREATE
+    public Result createResult(Result result) {
+        return resultRepo.save(result);
+    }
+
+    // READ ALL
+    public List<Result> getAllResults() {
+        return resultRepo.findAll();
+    }
+
+    // READ ONE
+    public Result getResultById(Long id) {
+        return resultRepo.findById(id).orElse(null);
+    }
+
+    // UPDATE
+    public Result updateResult(Result result) {
+        return resultRepo.save(result); // save handles both create and update
+    }
+
+    // DELETE
+    public void deleteResult(Long id) {
+        resultRepo.deleteById(id);
+    }
+
+    // Optional: Get all results by user (owner)
+    public List<Result> getResultsByUserId(Long userId) {
+        return resultRepo.findByOwnerId(userId);
+    }
 }

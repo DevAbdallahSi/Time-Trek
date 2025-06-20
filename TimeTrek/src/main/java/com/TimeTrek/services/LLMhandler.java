@@ -1,6 +1,7 @@
 package com.TimeTrek.services;
 
 import java.io.IOException;
+
 import java.net.URISyntaxException;
 
 import com.TimeTrek.models.User;
@@ -11,7 +12,7 @@ import io.github.ollama4j.models.response.Model;
 
 public class LLMhandler {
 	private static String host="http://localhost:11434/";
-//	private static String modelName = "hf.co/unsloth/Llama-3.2-1B-Instruct-GGUF:Q4_K_M";
+	private static String modelName = "hf.co/unsloth/Llama-3.2-1B-Instruct-GGUF:Q4_K_M";
 	static String systemprompt="respond with a short and concise, helpful suggestion based on the following inputs:";
 	
 	
@@ -19,7 +20,8 @@ public class LLMhandler {
 	public static String generate(String input) {
 		
 		try {
-			return new OllamaAPI(host).generate(getModel(),systemprompt+input,null).getResponse();
+//			return new OllamaAPI(host).generate(getModel(),systemprompt+input,null).getResponse();
+			return new OllamaAPI(host).generate(modelName,systemprompt+input,null).getResponse();
 		} catch (OllamaBaseException | IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
