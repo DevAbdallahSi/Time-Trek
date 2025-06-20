@@ -32,8 +32,8 @@ public class Goal {
     private String title;
 
     @NotBlank(message = "Description: is required")
-    @Size(min = 21, max = 500, message = "Description: must be between 20 and 500 characters")
-    private String details;
+    @Size(min = 5, max = 500, message = "Description: must be between 5 and 500 characters")
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
@@ -42,9 +42,9 @@ public class Goal {
     
     public Goal() {}
     
-    public Goal(String title, String details,User user) {
+    public Goal(String title, String description,User user) {
     	this.title = title;
-    	this.details = details;
+    	this.description = description;
     	this.owner=user;
     }
     
@@ -73,13 +73,7 @@ public class Goal {
 
 	
 
-	public String getDetails() {
-		return details;
-	}
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
 
 
 
@@ -87,7 +81,15 @@ public class Goal {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.net.URISyntaxException;
 
+import com.TimeTrek.models.Goal;
 import com.TimeTrek.models.User;
 
 import io.github.ollama4j.OllamaAPI;
@@ -40,7 +41,13 @@ public class LLMhandler {
 	
 	public static String getResponse(User user, String time, String mood, String status) {
 		
-		String goals="add looped through personal goals here, separated by commas or wtv";
+		String goals="";
+
+		for(Goal goal : user.getOwnedGoals()) {
+			goals+="\n%s: %s.\n".formatted(goal.getTitle(),goal.getDescription());
+		}
+		
+		
 		return getResponse(time,mood,status+", personal goals are as noted:"+goals);
 	}
 	

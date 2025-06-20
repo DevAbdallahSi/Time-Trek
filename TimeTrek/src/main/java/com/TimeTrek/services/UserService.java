@@ -66,4 +66,8 @@ public class UserService {
 	public User findUserById(Long id) {
 		return userRepo.findById(id).orElse(null);
 	}
+
+	 public Optional<User> findByEmail(String email) {
+	        return userRepo.findByEmail(email);
+	    }
 }
