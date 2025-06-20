@@ -32,7 +32,7 @@ public class Goal {
     private String title;
 
     @NotBlank(message = "Description: is required")
-    @Size(min = 21, max = 500, message = "Description: must be between 20 and 500 characters")
+    @Size(min = 5, max = 500, message = "Description: must be between 5 and 500 characters")
     private String details;
 
     @ManyToOne

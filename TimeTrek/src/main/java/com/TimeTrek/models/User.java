@@ -107,9 +107,13 @@ public class User {
 	public void setDayStreak(Integer dayStreak) {
 		this.dayStreak = dayStreak;
 	}
+	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date updatedAt;
 	
     public List<Goal> getOwnedGoals() {
 		return ownedGoals;
@@ -117,8 +121,6 @@ public class User {
 	public void setOwnedGoals(List<Goal> ownedGoals) {
 		this.ownedGoals = ownedGoals;
 	}
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date updatedAt;
   
     public User() {}
     public User(String firstName,String email,String lastName,String password,String confirm) {

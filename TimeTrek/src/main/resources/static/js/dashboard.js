@@ -1,4 +1,5 @@
 let currentEditingGoal = null;
+
 let goals = [
     {
         id: 1,
@@ -29,6 +30,7 @@ let goals = [
     }
 ];
 
+// Show the modal to add a new goal
 function showAddGoalModal() {
     currentEditingGoal = null;
     document.getElementById('goalModalTitle').textContent = '➕ Add New Goal';
@@ -37,6 +39,7 @@ function showAddGoalModal() {
     modal.show();
 }
 
+// Show the modal to edit an existing goal
 function editGoal(goalId) {
     const goal = goals.find(g => g.id === goalId);
     if (!goal) return;
@@ -52,6 +55,7 @@ function editGoal(goalId) {
     modal.show();
 }
 
+// Save a new or edited goal
 function saveGoal() {
     const title = document.getElementById('goalTitle').value.trim();
     const description = document.getElementById('goalDescription').value.trim();
@@ -64,7 +68,6 @@ function saveGoal() {
     }
 
     if (currentEditingGoal) {
-        // Edit existing goal
         const goalIndex = goals.findIndex(g => g.id === currentEditingGoal);
         if (goalIndex !== -1) {
             goals[goalIndex] = {
@@ -77,7 +80,6 @@ function saveGoal() {
             };
         }
     } else {
-        // Add new goal
         const newGoal = {
             id: Date.now(),
             icon: icon,
@@ -92,20 +94,87 @@ function saveGoal() {
 
     renderGoals();
     bootstrap.Modal.getInstance(document.getElementById('goalModal')).hide();
-    
-    // Success message
+
     setTimeout(() => {
         alert(currentEditingGoal ? '✅ Goal updated successfully!' : '🎉 New goal added successfully!');
     }, 300);
 }
 
+// Delete a goal
 function deleteGoal(goalId) {
     if (confirm('Are you sure you want to delete this goal? This action cannot be undone.')) {
         const goalIndex = goals.findIndex(g => g.id === goalId);
         if (goalIndex !== -1) {
             goals.splice(goalIndex, 1);
-            renderGoals(); // Update the UI after deletion
+            renderGoals();
         }
     }
 }
 
+// Render all goals in the DOM
+function renderGoals() {
+    const goalsList = document.getElementById('goalsList');
+    goalsList.innerHTML = '';
+
+    goals.forEach(goal => {
+        const goalHTML = `
+            <div class="goal-item" data-goal-id="${goal.id}">
+                <div class="goal-header">
+                    <div class="goal-title">${goal.icon} ${goal.title}</div>
+                    <div class="goal-actions">
+                        <button class="btn btn-glass btn-sm" onclick="editGoal(${goal.id})">✏️ Edit</button>
+                        <button class="btn btn-glass btn-sm" onclick="deleteGoal(${goal.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+                <div class="goal-description">${goal.description}</div>
+                <div class="goal-progress">Progress: ${goal.progress}%</div>
+            </div>
+        `;
+        goalsList.insertAdjacentHTML('beforeend', goalHTML);
+    });
+}
+
+// FullCalendar setup
+document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    if (calendarEl) {
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            editable: false,
+            events: '/schedule/events' // This must be served as JSON from your backend
+        });
+        calendar.render();
+    }
+
+    // Attach event form handler safely
+    const form = document.getElementById('eventForm');
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('evTitle').value;
+            const start = document.getElementById('evStart').value;
+            const end = document.getElementById('evEnd').value;
+
+            if (!title || !start || !end) {
+                alert("Please fill in all event fields.");
+                return;
+            }
+
+            fetch("/schedule/events", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, start, end })
+            }).then(res => res.json())
+              .then(() => location.reload())
+              .catch(err => alert("Failed to add event."));
+        });
+    }
+
+    renderGoals();
+});
