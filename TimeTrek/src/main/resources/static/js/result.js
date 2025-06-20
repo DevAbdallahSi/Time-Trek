@@ -54,11 +54,8 @@ function showCompletionMessage() {
 
 // User marks activity as complete
 function completeActivity() {
-    const confirmation = confirm('Did you complete this activity? This will help us improve our suggestions for you!');
-    if (confirmation) {
-        alert('🎉 Awesome! Activity marked as completed. Great job on making the most of your time!');
-        // Optional: Send data to server here
-    }
+    const confirmation = confirm('🎉 Awesome! Activity marked as completed. Great job on making the most of your time!');
+
 }
 
 // User asks for a new suggestion

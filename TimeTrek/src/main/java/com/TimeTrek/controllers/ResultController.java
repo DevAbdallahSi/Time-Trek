@@ -21,7 +21,7 @@ public class ResultController {
 	private ResultService resultService;
 	
 	@PostMapping("/suggest")
-	public String newSuggest(HttpSession session, Model model , @RequestParam Integer minutes,@RequestParam String status, @RequestParam String mood) {
+	public String newSuggest(HttpSession session, Model model , @RequestParam Integer minutes,@RequestParam String status, @RequestParam (defaultValue = "neutral") String mood) {
 		User user = (User) session.getAttribute("loggedInUser");
 		if (user == null) {
 //			session.invalidate(); // Clear the session if the user doesn't exist
@@ -67,6 +67,14 @@ public class ResultController {
 //		Result result = resultService.getResultById(id);
 //		model.addAttribute("result", result);
 		return "result";
+	}
+	
+	@GetMapping("/complete/{resultid}")
+	public String complete(@PathVariable ("resultid") Long Id) {
+		
+		resultService.complete(Id);
+		return "redirect:/dashboard";
+
 	}
 
 }

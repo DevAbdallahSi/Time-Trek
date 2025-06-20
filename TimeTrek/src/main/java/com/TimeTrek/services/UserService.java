@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.TimeTrek.models.Goal;
 import com.TimeTrek.models.LoginUser;
 import com.TimeTrek.models.User;
 import com.TimeTrek.repositories.UserRepository;
@@ -70,4 +71,10 @@ public class UserService {
 	 public Optional<User> findByEmail(String email) {
 	        return userRepo.findByEmail(email);
 	    }
+	 
+	 
+	 public void deleteGoal(Goal goal,User user) {
+		 user.getOwnedGoals().remove(goal);
+		 userRepo.save(user);
+	 }
 }

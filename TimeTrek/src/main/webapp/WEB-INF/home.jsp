@@ -194,8 +194,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
