@@ -104,16 +104,18 @@ public class GoalController {
 	@PostMapping("/newGoal")
 	public String createGoal(@Valid @ModelAttribute("goal") Goal goal, HttpSession session, BindingResult result,
 			Model model) {
+		System.out.println("test");
+
 		User user = (User) session.getAttribute("loggedInUser");
 		if (user == null) {
 			session.invalidate(); // Clear the session if the user doesn't exist
 			return "redirect:/join";
 		}
 		if (result.hasErrors()) {
-			model.addAttribute("user", user); // in case the dashboard needs it
-			model.addAttribute("goal", goal); // send back goal with errors
-			model.addAttribute("showGoalModal", true);
-			return "dashboard";
+			session.setAttribute("goal", goal); // send back goal with errors
+			session.setAttribute("showGoalModal", true);
+			System.out.println("test");
+			return "redirect:/dashboard";
 		}
 
 		goal.setOwner(user);
