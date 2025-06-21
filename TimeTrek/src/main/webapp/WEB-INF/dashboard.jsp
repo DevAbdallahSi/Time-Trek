@@ -83,21 +83,21 @@
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">✅</div>
-						<div class="stat-number">${user.completedToday}</div>
+						<div class="stat-number">${completedToday}</div>
 						<div class="stat-label">Completed Today</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">⏱️</div>
-						<div class="stat-number">${user.minutesTracked}</div>
+						<div class="stat-number">${minutesTracked}</div>
 						<div class="stat-label">Minutes Tracked</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="stat-card">
 						<div class="stat-icon">🔥</div>
-						<div class="stat-number">${user.dayStreak}</div>
+						<div class="stat-number">${dayStreak}</div>
 						<div class="stat-label">Day Streak</div>
 					</div>
 				</div>
@@ -122,10 +122,30 @@
 					<!-- Display -->
 					<div class="activity-item">
 						<div class="activity-details">
+							<div class="activbox">
 							<span class="activity-time"> <fmt:formatDate
 									value="${startTime}" pattern="hh:mm a" /> - <fmt:formatDate
 									value="${endDate}" pattern="hh:mm a" />
-							</span> | Duration: ${item.minutes} minutes | Status: ✅ ${item.status}
+							</span>
+							<span> Duration: ${item.minutes} minutes </span>
+							<c:if test="${not empty item.status}">
+							<span>Status: ${item.status}</span> 
+							</c:if>
+							</div>
+							<span>Completed:<a class="nounderline" href="/complete/${item.id}">
+							<c:choose>
+							<c:when test="${item.completed}">✅
+							</c:when>
+							<c:otherwise>
+						        ❎
+						    </c:otherwise>
+						    </c:choose>
+						    </a>
+							 </span>
+
+							
+
+
 						</div>
 					</div>
 				</c:forEach>
