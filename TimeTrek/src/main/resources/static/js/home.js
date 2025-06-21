@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			}, 200);
 		});
 	});
-	window.onload = () => fetch('/prewarm');
 	// Form validation to ensure mood is selected
 	const form = document.querySelector('form');
 	form.addEventListener('submit', function(e) {
@@ -35,8 +34,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
+window.onload = () => fetch('/prewarm');
+
+function showLoading() {
+    document.getElementById('loadingOverlay').classList.remove('hidden');
+}
+
+function hideLoading() {
+    document.getElementById('loadingOverlay').classList.add('hidden');
+}
 document.querySelector("form").addEventListener("submit", function() {
-	document.getElementById("result-wait").style.display = "flex";
+	document.getElementById('loadingOverlay').classList.remove('hidden');
 });
 
 window.addEventListener("DOMContentLoaded", function() {
