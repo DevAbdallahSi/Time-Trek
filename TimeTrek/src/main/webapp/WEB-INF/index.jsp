@@ -19,12 +19,12 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-	
+
 <!-- Google font Montserrat -->
 <link
 	href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800"
 	rel="stylesheet">
-	<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<!-- Floating Background Elements -->
@@ -35,7 +35,8 @@
 	<!-- Brand Logo -->
 	<div class="brand-logo">🕒 TimeTrek</div>
 
-	<div class="container ${showSignUp ? 'right-panel-active' : ''}" id="container">
+	<div class="container ${showSignUp ? 'right-panel-active' : ''}"
+		id="container">
 		<!-- Registration form -->
 		<div class="form-container sign-up-container">
 			<form:form action="/register" method="post" modelAttribute="newUser">
@@ -95,18 +96,19 @@
 				</div>
 				<div class="overlay-panel overlay-right">
 					<h1>Hello, Friend!</h1>
-					<p>Enter your personal details and start your journey with Time
-						Path to better time management</p>
+					<p>Enter your details and start your journey with
+						TimeTrek for better time management, personalized dashboard with goal tracking, daily summaries, and
+						more smart features!</p>
 					<button class="ghost" id="signUp">Register</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<script
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-		<script src="/js/script.js"></script>
-	
+	<script src="/js/script.js"></script>
+
 </body>
 </html>

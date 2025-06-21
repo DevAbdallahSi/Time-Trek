@@ -34,8 +34,6 @@ public class GoalController {
 	@Autowired
 	private UserService userService;
 
-	
-
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, Model model) {
 
@@ -48,9 +46,7 @@ public class GoalController {
 		model.addAttribute("goal", new Goal());
 		model.addAttribute("ownedGoals", goalservice.findGoalByOwnerID(user.getId()));
 		model.addAttribute("activeGoals", goalservice.findGoalByOwnerID(user.getId()).size());
-		
-		
-		
+
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		today.set(Calendar.MINUTE, 0);
@@ -60,32 +56,33 @@ public class GoalController {
 		Calendar tomorrow = (Calendar) today.clone();
 		tomorrow.add(Calendar.DAY_OF_MONTH, 1);
 
-		List<Result> todaysResults = resultService.getResultsByUserId(user.getId());
+		List<Result> todaysResults = resultService.getResultsByUserId(user.getId()).stream()
+				.sorted((r1, r2) -> r2.getCreatedAt().compareTo(r1.getCreatedAt())).toList();
 
 		model.addAttribute("todaysResults", todaysResults);
-		
-		
-		Integer completedToday=0;
-		Integer minutesTracked=0;
-		Integer dayStreak=0;
-		Boolean streakintact=true;
-		Integer prevday=0;
-		for(Result res:resultService.getResultsByUserId(user.getId()).stream().sorted((r1, r2) -> r2.getCreatedAt().compareTo(r1.getCreatedAt())).toList()) {
-			if(res.isCompleted()&&res.getCreatedAt().getDate()==today.getTime().getDate()) {
+
+		Integer completedToday = 0;
+		Integer minutesTracked = 0;
+		Integer dayStreak = 0;
+		Boolean streakintact = true;
+		Integer prevday = 0;
+		for (Result res : resultService.getResultsByUserId(user.getId()).stream()
+				.sorted((r1, r2) -> r2.getCreatedAt().compareTo(r1.getCreatedAt())).toList()) {
+			if (res.isCompleted() && res.getCreatedAt().getDate() == today.getTime().getDate()) {
 				completedToday++;
-				minutesTracked+=res.getMinutes();
+				minutesTracked += res.getMinutes();
 			}
-			
-			if(res.isCompleted()&&streakintact&&(prevday!=res.getCreatedAt().getDate()||prevday==0)) { 
+
+			if (res.isCompleted() && streakintact && (prevday != res.getCreatedAt().getDate() || prevday == 0)) {
 				dayStreak++;
-				prevday=res.getCreatedAt().getDate();
-			} else streakintact=false;
+				prevday = res.getCreatedAt().getDate();
+			} else
+				streakintact = false;
 		}
-		model.addAttribute("completedToday",completedToday);
-		model.addAttribute("minutesTracked",minutesTracked);
-		model.addAttribute("dayStreak",dayStreak);
-		
-		
+		model.addAttribute("completedToday", completedToday);
+		model.addAttribute("minutesTracked", minutesTracked);
+		model.addAttribute("dayStreak", dayStreak);
+
 		return "dashboard";
 	}
 
