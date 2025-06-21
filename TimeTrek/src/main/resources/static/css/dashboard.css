@@ -247,19 +247,8 @@ translateY(
             font-size: 28px;
             margin-bottom: 10px;
         }
-        .goal-item {
-            background: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        }
-        rgb(0, 0, 0)0, 0)ar {
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-        }
+        
+       
 
 .section-title {
 	color: white;
@@ -328,7 +317,7 @@ translateY(
 }
 
 .goal-item {
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.0);
 	backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	border-radius: 15px;
@@ -430,7 +419,7 @@ translateY(
 
 /* Action Buttons */
 .btn-glass {
-    background: rgb(202 3 22 / 69%);
+    background: rgb(177 111 207);
     backdrop-filter: blur(10px);
     border: 1px solid rgb(255 255 255 / 60%);
     color: #f8e7ffe0;

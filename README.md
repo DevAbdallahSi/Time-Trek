@@ -36,8 +36,8 @@ Too often when we find ourselves with a small window of free time, we default to
 ## 👥 Team Members
 
 - Abdallah Salhi  
-- Ahmad Abed Allatif  
-- Ahmad Al Joudeh  
+- Ahmad Abdellatif  
+- Ahmad Aljoudeh  
 
 ---
 
