@@ -16,6 +16,8 @@ body {
 	background-attachment: fixed;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	min-height: 100vh;
+	display:flex;
+    flex-direction:column; 
 }
 
 /* Glassmorphism Navbar */
@@ -284,6 +286,16 @@ translateY(
 }
 .nounderline{
 	text-decoration:none;	
+	background:rgba(255, 255, 255, 0.6);
+	padding: 2px;
+	border-radius:5px; 
+}
+.nounderline:hover{
+	background:rgba(182, 138, 207, 0.6);
+	padding: 3px;
+	transition: all 0.3s ease;
+	
+	
 }
 
 .activbox{
@@ -419,7 +431,7 @@ translateY(
 
 /* Action Buttons */
 .btn-glass {
-    background: rgb(177 111 207);
+    background: rgb(182 138 207);
     backdrop-filter: blur(10px);
     border: 1px solid rgb(255 255 255 / 60%);
     color: #f8e7ffe0;
