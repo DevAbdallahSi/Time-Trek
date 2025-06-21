@@ -16,13 +16,19 @@ public class LLMhandler {
 	private static String modelName = "hf.co/unsloth/Llama-3.2-1B-Instruct-GGUF:Q4_K_M";
 	static String systemprompt="respond with a short and concise, helpful suggestion based on the following inputs:";
 	
+	static OllamaAPI LLM;
 	
+	public static void prewarmLLM() {
+		
+		LLM=new OllamaAPI(host);
+	}
 	
 	public static String generate(String input) {
 		
 		try {
-//			return new OllamaAPI(host).generate(getModel(),systemprompt+input,null).getResponse();
-			return new OllamaAPI(host).generate(modelName,systemprompt+input,null).getResponse();
+			if(LLM==null)new OllamaAPI(host);
+
+			return LLM.generate(modelName,systemprompt+input,null).getResponse();
 		} catch (OllamaBaseException | IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

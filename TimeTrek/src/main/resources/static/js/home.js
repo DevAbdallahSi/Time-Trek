@@ -35,3 +35,6 @@
                 });
             });
  
+			window.onload = () => fetch('/prewarm');
+			
+			
