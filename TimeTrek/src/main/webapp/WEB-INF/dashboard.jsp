@@ -108,6 +108,7 @@
 				<div class="scrol-container">
 				<div class="scroll-box">
 					<c:forEach var="item" items="${todaysResults}">
+						
 						<c:set var="startTime" value="${item.createdAt}" />
 						<c:set var="durationMillis" value="${item.minutes * 60000}" />
 						<c:set var="endTimeMillis"
@@ -115,8 +116,9 @@
 						<jsp:useBean id="endDate" class="java.util.Date" />
 						<c:set target="${endDate}" property="time"
 							value="${endTimeMillis}" />
-
-						<div class="activity-item">
+											
+						<div class="activity-item" onclick="window.location.href='/result/${item.id}'">
+						
 							<div class="activity-details">
 								<div class="activbox">
 									<span class="activity-time"> <fmt:formatDate
@@ -136,6 +138,7 @@
 								</span>
 							</div>
 						</div>
+						
 					</c:forEach>
 				</div>
 				</div>
