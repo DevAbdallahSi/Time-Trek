@@ -223,10 +223,10 @@ translateY(
 
 /* Optional: keep items spaced nicely */
 .activity-item {
+  cursor:pointer;
   padding: 10px;
   border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 }
-
 .activity-item:last-child {
   border-bottom: none;
 }
