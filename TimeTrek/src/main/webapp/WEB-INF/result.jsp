@@ -68,7 +68,7 @@
 						📋 Your Request</h3>
 					<div>
 						<span class="summary-badge">⏱️ ${result.minutes} minutes available</span> 
-						<span class="summary-badge">🧠 Feeling${result.mood}</span>
+						<span class="summary-badge">🧠 Feeling ${result.mood}</span>
 					</div>
 					<c:if test="${not empty result.status}">
 						<p

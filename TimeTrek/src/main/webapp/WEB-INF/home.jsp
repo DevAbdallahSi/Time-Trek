@@ -159,8 +159,7 @@
 				</div>
 
 
-				<button type="submit" class="btn btn-submit w-100">🚀 Get
-					My Perfect Suggestion</button>
+				<button type="submit" class="btn btn-submit w-100"> Get  Suggestion</button>
 			</form>
 		</div>
 		
@@ -228,6 +227,21 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Add this overlay to your page -->
+<div class="loading-overlay hidden" id="loadingOverlay" onclick="hideLoading()">
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="loading-text">Preparing your result</div>
+</div>
 
 
 	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
