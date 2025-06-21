@@ -24,15 +24,15 @@ public class ResultController {
 	public String newSuggest(HttpSession session, Model model , @RequestParam Integer minutes,@RequestParam String status, @RequestParam (defaultValue = "neutral") String mood) {
 		User user = (User) session.getAttribute("loggedInUser");
 		if (user == null) {
-//			session.invalidate(); // Clear the session if the user doesn't exist
 			
 			
 			String response=LLMhandler.getResponse(""+minutes,mood,status);
 	        Result result = new Result(mood,status,response,null,minutes);
-			session.setAttribute("result",result);
+			model.addAttribute("result",result);
+			
 
 
-			return "redirect:/result";
+			return "result";
 		}
 
 		String response=LLMhandler.getResponse(user,""+minutes,mood,status);
