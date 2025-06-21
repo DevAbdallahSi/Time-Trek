@@ -162,10 +162,7 @@
 				<button type="submit" class="btn btn-submit w-100"> Get  Suggestion</button>
 			</form>
 		</div>
-		<div id="result-wait" class="result-wait-box" style="display: none;">
-			<div class="ping-circle"></div>
-			<p>⏳ Generating your recommendation…</p>
-		</div>
+		
 	</div>
 
 

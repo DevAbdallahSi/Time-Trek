@@ -256,7 +256,7 @@ translateX(
 
 /* Stylish Submit Button */
 .btn-submit {
-	background: var(--secondary-gradient);
+	background: #9e63bf;
 	border: none;
 	border-radius: 25px;
 	padding: 15px 40px;
@@ -268,6 +268,7 @@ translateX(
 	transition: all 0.3s ease;
 	position: relative;
 	overflow: hidden;
+	color: white;;
 }
 
 .btn-submit::before {
