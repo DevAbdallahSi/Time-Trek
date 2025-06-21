@@ -34,19 +34,7 @@ public class GoalController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/")
-	public String home(HttpSession session, Model model) {
-
-		User user = (User) session.getAttribute("loggedInUser");
-		if (user == null) {
-			session.invalidate(); // Clear the session if the user doesn't exist
-			return "home";
-		}
-
-		model.addAttribute("user", user);
-
-		return "home";
-	}
+	
 
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, Model model) {
