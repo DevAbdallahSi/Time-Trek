@@ -48,8 +48,7 @@
 									Logout</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/join">🔐
-									Login & 📝 Register</a></li>
+							<li class="nav-item"><a class="nav-link" href="/join">🔐	 Login</a></li>
 
 						</c:otherwise>
 					</c:choose>

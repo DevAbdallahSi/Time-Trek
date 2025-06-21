@@ -37,50 +37,26 @@ function deleteGoal(goalId) {
 
 	}
 }
-
-
-
-// FullCalendar setup
-document.addEventListener('DOMContentLoaded', function() {
-	const calendarEl = document.getElementById('calendar');
-	if (calendarEl) {
-		const calendar = new FullCalendar.Calendar(calendarEl, {
-			initialView: 'timeGridWeek',
-			headerToolbar: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'dayGridMonth,timeGridWeek,timeGridDay'
-			},
-			editable: false,
-			events: '/schedule/events' // This must be served as JSON from your backend
-		});
-		calendar.render();
+// Delete a goal
+function addGoal(goalId) {
+		
+	
+	title=document.getElementById('goalTitle').value;
+	desc=document.getElementById('goalDescription').value;
+	
+	if(title.length<4){
+		alert("title should be at least 4 characters")
+		return false;
 	}
-
-	// Attach event form handler safely
-	const form = document.getElementById('eventForm');
-	if (form) {
-		form.addEventListener('submit', function(e) {
-			e.preventDefault();
-
-			const title = document.getElementById('evTitle').value;
-			const start = document.getElementById('evStart').value;
-			const end = document.getElementById('evEnd').value;
-
-			if (!title || !start || !end) {
-				alert("Please fill in all event fields.");
-				return;
-			}
-
-			fetch("/schedule/events", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ title, start, end })
-			}).then(res => res.json())
-				.then(() => location.reload())
-				.catch(err => alert("Failed to add event."));
-		});
+	if( desc.length<5){
+		alert("description should be at least 5 characters");
+		return false;
 	}
+	return true;
+	
+}
 
-	renderGoals();
-});
+
+
+
+
