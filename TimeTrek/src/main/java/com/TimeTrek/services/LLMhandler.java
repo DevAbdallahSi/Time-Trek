@@ -42,7 +42,8 @@ public class LLMhandler {
 	public static String getResponse(User user, String time, String mood, String status) {
 		
 		String goals="";
-
+		
+		if(!user.getOwnedGoals().isEmpty())
 		for(Goal goal : user.getOwnedGoals()) {
 			goals+="\n%s: %s.\n".formatted(goal.getTitle(),goal.getDescription());
 		}
