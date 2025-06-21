@@ -286,6 +286,16 @@ translateY(
 }
 .nounderline{
 	text-decoration:none;	
+	background:rgba(255, 255, 255, 0.6);
+	padding: 2px;
+	border-radius:5px; 
+}
+.nounderline:hover{
+	background:rgba(182, 138, 207, 0.6);
+	padding: 3px;
+	transition: all 0.3s ease;
+	
+	
 }
 
 .activbox{
