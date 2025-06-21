@@ -163,10 +163,7 @@
 					My Perfect Suggestion</button>
 			</form>
 		</div>
-		<div id="result-wait" class="result-wait-box" style="display: none;">
-			<div class="ping-circle"></div>
-			<p>⏳ Generating your recommendation…</p>
-		</div>
+		
 	</div>
 
 
