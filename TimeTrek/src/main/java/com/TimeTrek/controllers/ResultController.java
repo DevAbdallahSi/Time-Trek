@@ -20,6 +20,26 @@ public class ResultController {
 	@Autowired
 	private ResultService resultService;
 	
+	@GetMapping("/")
+	public String home(HttpSession session, Model model) {
+
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			session.invalidate(); // Clear the session if the user doesn't exist
+			return "home";
+		}
+
+		model.addAttribute("user", user);
+		
+		
+
+		return "home";
+	}
+	@GetMapping("/prewarm")
+	public void prewarm() {
+		LLMhandler.prewarmLLM();
+	}
+	
 	@PostMapping("/suggest")
 	public String newSuggest(HttpSession session, Model model , @RequestParam Integer minutes,@RequestParam String status, @RequestParam (defaultValue = "neutral") String mood) {
 		User user = (User) session.getAttribute("loggedInUser");
@@ -50,6 +70,7 @@ public class ResultController {
 		return "redirect:/result/"+result.getId();
 		
 	}
+	
 	
 	@GetMapping("/result/{id}")
 	public String result(@PathVariable Long id, Model model, HttpSession session) {

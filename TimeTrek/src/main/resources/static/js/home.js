@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}, 200);
 		});
 	});
-
+	window.onload = () => fetch('/prewarm');
 	// Form validation to ensure mood is selected
 	const form = document.querySelector('form');
 	form.addEventListener('submit', function(e) {
@@ -48,3 +48,4 @@ window.addEventListener("DOMContentLoaded", function() {
 		}, 2000);
 	}
 });
+
