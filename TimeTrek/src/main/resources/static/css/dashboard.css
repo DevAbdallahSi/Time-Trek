@@ -32,6 +32,18 @@ body {
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.nav-link {
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color: rgb(255 255 255);
+    text-decoration: none;
+    background: 0 0;
+    border: 0;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+
 /* Dashboard Container */
 .dashboard-container {
 	padding: 40px 0;
@@ -51,6 +63,9 @@ body {
 	position: relative;
 	overflow: hidden;
 	text-align: center;
+}
+input.form-control:invalid, textarea.form-control:invalid {
+  border-color: #ffeb3b;
 }
 
 .welcome-section::before {
@@ -163,6 +178,59 @@ translateY(
 	border: 1px solid var(--glass-border);
 	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
 }
+
+.scrol-container{
+	padding: 15px 0;
+	padding-right: 8px;
+	
+	border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+}
+/* Scrollable container */
+.scroll-box {
+  padding: 00px 10px 0 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  margin-right: 0;
+  box-sizing: border-box;     /* ✅ Prevents overflow from padding */
+  overflow-x: hidden;         /* ✅ Hides any horizontal shift */
+}
+
+/* Customize scrollbar */
+.scroll-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  border: 2px solid transparent;      /* ✅ Prevents thumb bleed */
+  background-clip: padding-box;
+}
+
+/* For Firefox */
+.scroll-box {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+
+/* Optional: keep items spaced nicely */
+.activity-item {
+  padding: 10px;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
  .stat-card {
     background: var(--glass-bg);
     backdrop-filter: blur(15px);

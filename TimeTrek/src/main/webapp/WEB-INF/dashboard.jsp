@@ -47,8 +47,8 @@
 							My Schedule</a></li>
 					<c:choose>
 						<c:when test="${not empty user}">
-							<li class="nav-item"><a class="nav-link disabled"
-								tabindex="-1" aria-disabled="true">👤 ${user.firstName}</a></li>
+							<li class="nav-item"><a class="nav-link "
+								tabindex="-1" >👤 ${user.firstName}</a></li>
 							<li class="nav-item"><a class="nav-link" href="/logout">🔓
 									Log Out</a></li>
 						</c:when>
@@ -102,55 +102,43 @@
 					</div>
 				</div>
 			</div>
-
 			<!-- Day Summary Section -->
 			<div class="day-summary">
-				<h3 class="section-title">📅 Today's Summary</h3>
-				<c:forEach var="item" items="${todaysResults}">
-					<c:set var="startTime" value="${item.createdAt}" />
-					<!-- Convert minutes to milliseconds and add it to startTime -->
-					<c:set var="durationMillis" value="${item.minutes * 60000}" />
+				<h3 class="section-title">📅 Results Summary</h3>
+				<div class="scrol-container">
+				<div class="scroll-box">
+					<c:forEach var="item" items="${todaysResults}">
+						<c:set var="startTime" value="${item.createdAt}" />
+						<c:set var="durationMillis" value="${item.minutes * 60000}" />
+						<c:set var="endTimeMillis"
+							value="${startTime.time + durationMillis}" />
+						<jsp:useBean id="endDate" class="java.util.Date" />
+						<c:set target="${endDate}" property="time"
+							value="${endTimeMillis}" />
 
-					<!-- Compute end timestamp -->
-					<c:set var="endTimeMillis"
-						value="${startTime.time + durationMillis}" />
-
-					<!-- Convert Long to Date -->
-					<jsp:useBean id="endDate" class="java.util.Date" />
-					<c:set target="${endDate}" property="time" value="${endTimeMillis}" />
-
-					<!-- Display -->
-					<div class="activity-item">
-						<div class="activity-details">
-							<div class="activbox">
-							<span class="activity-time"> <fmt:formatDate
-									value="${startTime}" pattern="hh:mm a" /> - <fmt:formatDate
-									value="${endDate}" pattern="hh:mm a" />
-							</span>
-							<span> Duration: ${item.minutes} minutes </span>
-							<c:if test="${not empty item.status}">
-							<span>Status: ${item.status}</span> 
-							</c:if>
+						<div class="activity-item">
+							<div class="activity-details">
+								<div class="activbox">
+									<span class="activity-time"> <fmt:formatDate
+											value="${startTime}" pattern="hh:mm a" /> - <fmt:formatDate
+											value="${endDate}" pattern="hh:mm a" />
+									</span> <span>Duration: ${item.minutes} minutes</span>
+									<c:if test="${not empty item.status}">
+										<span>Status: ${item.status}</span>
+									</c:if>
+								</div>
+								<span> Completed: <a class="nounderline"
+									href="/complete/${item.id}"> <c:choose>
+											<c:when test="${item.completed}">✅</c:when>
+											<c:otherwise>❎</c:otherwise>
+										</c:choose>
+								</a>
+								</span>
 							</div>
-							<span>Completed:<a class="nounderline" href="/complete/${item.id}">
-							<c:choose>
-							<c:when test="${item.completed}">✅
-							</c:when>
-							<c:otherwise>
-						        ❎
-						    </c:otherwise>
-						    </c:choose>
-						    </a>
-							 </span>
-
-							
-
-
 						</div>
-					</div>
-				</c:forEach>
-
-
+					</c:forEach>
+				</div>
+				</div>
 			</div>
 
 			<!-- Goals Section -->
@@ -191,25 +179,25 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="goalModalTitle"></h5>
+					<h5 class="modal-title" id="goalModalTitle">➕ Add New Goal</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body">
-					<form:form id="goalForm" modelAttribute="goal" action="/newGoal"
+					<form:form id="goalForm" onsubmit="return addGoal();" modelAttribute="goal" action="/newGoal"
 						method="POST">
 						<div class="mb-3">
 							<label for="goalTitle" class="form-label">Title</label>
 							<form:input path="title" cssClass="form-control" id="goalTitle"
-								placeholder="Enter goal title" />
+								placeholder="Enter goal title" required="required" />
 							<form:errors path="title" cssClass="text-danger" />
 						</div>
 
 						<div class="mb-3">
 							<label for="goalDescription" class="form-label">Description</label>
 							<form:textarea path="description" cssClass="form-control"
-								id="goalDescription" placeholder="Enter goal description" />
+								id="goalDescription" placeholder="Enter goal description" required="required"/>
 							<form:errors path="description" cssClass="text-danger" />
 						</div>
 
@@ -217,7 +205,7 @@
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Close</button>
 
-							<button type="submit" class="btn btn-submit">NewGoal</button>
+							<button type="submit" class="btn btn-submit">➕ Add Goal</button>
 						</div>
 					</form:form>
 
@@ -237,7 +225,13 @@
 				class="text-light">Terms of Service</a>
 		</div>
 	</footer>
-
+	<c:if test="${showGoalModal}">
+		<script>
+			var goalModal = new bootstrap.Modal(document
+					.getElementById('goalModal'));
+			goalModal.show();
+		</script>
+	</c:if>
 
 	<!-- Bootstrap JS -->
 	<script
