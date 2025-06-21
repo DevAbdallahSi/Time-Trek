@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Your Perfect Activity - Time Path</title>
+<title>Your Perfect Activity - TimeTrek</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -28,7 +28,7 @@
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="/">🕒 Time Path</a>
+			<a class="navbar-brand" href="/">🕒 TimeTrek</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav">
 				<span class="navbar-toggler-icon"></span>
@@ -67,9 +67,8 @@
 						style="color: white; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-bottom: 1rem;">
 						📋 Your Request</h3>
 					<div>
-						<span class="summary-badge">⏱️ ${result.minutes} minutes
-							available</span> <span class="summary-badge">🧠 Feeling
-							${result.mood}</span>
+						<span class="summary-badge">⏱️ ${result.minutes} minutes available</span> 
+						<span class="summary-badge">🧠 Feeling ${result.mood}</span>
 					</div>
 					<c:if test="${not empty result.status}">
 						<p
@@ -129,7 +128,7 @@
 
 		</div>
 	</div>
-
+	<div style="flex-grow: 1;"></div>
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">

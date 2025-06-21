@@ -20,19 +20,39 @@ public class ResultController {
 	@Autowired
 	private ResultService resultService;
 	
+	@GetMapping("/")
+	public String home(HttpSession session, Model model) {
+
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			session.invalidate(); // Clear the session if the user doesn't exist
+			return "home";
+		}
+
+		model.addAttribute("user", user);
+		
+		
+
+		return "home";
+	}
+	@GetMapping("/prewarm")
+	public void prewarm() {
+		LLMhandler.prewarmLLM();
+	}
+	
 	@PostMapping("/suggest")
 	public String newSuggest(HttpSession session, Model model , @RequestParam Integer minutes,@RequestParam String status, @RequestParam (defaultValue = "neutral") String mood) {
 		User user = (User) session.getAttribute("loggedInUser");
 		if (user == null) {
-//			session.invalidate(); // Clear the session if the user doesn't exist
 			
 			
 			String response=LLMhandler.getResponse(""+minutes,mood,status);
 	        Result result = new Result(mood,status,response,null,minutes);
-			session.setAttribute("result",result);
+			model.addAttribute("result",result);
+			
 
 
-			return "redirect:/result";
+			return "result";
 		}
 
 		String response=LLMhandler.getResponse(user,""+minutes,mood,status);
@@ -40,32 +60,28 @@ public class ResultController {
         System.out.print("status"+status);
         
         
-        Result result = new Result(mood,status,response,user,minutes);
-        resultService.createResult(result);
+        Result result = resultService.createResult(new Result(mood,status,response,user,minutes));
         
 
 		System.out.println("response"+response);	
-		session.setAttribute("result",result);
+		
 
 		
-		return "redirect:/result";
+		return "redirect:/result/"+result.getId();
 		
 	}
 	
-	@GetMapping("/result")
-	public String result( Model model, HttpSession session) {
+	
+	@GetMapping("/result/{id}")
+	public String result(@PathVariable Long id, Model model, HttpSession session) {
 		User user = (User) session.getAttribute("loggedInUser");
 
 		if (user == null) {
 			return "result";
 		}
 
-		// Call AI Model or service to fetch suggestion
-//	        String suggestion = resultService.getSuggestion(minutes, mood);
-
 		model.addAttribute("user", user);
-//		Result result = resultService.getResultById(id);
-//		model.addAttribute("result", result);
+		model.addAttribute("result", resultService.getResultById(id));
 		return "result";
 	}
 	

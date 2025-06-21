@@ -27,6 +27,17 @@
 </head>
 
 <body>
+	<!-- Success Message -->
+	<c:if test="${not empty success}">
+		<div id="success-alert"
+			class="alert glass-alert alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
+			role="alert" style="z-index: 1055; width: fit-content;">
+			${success}
+			<button type="button" class="btn-close btn-close-white"
+				data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</c:if>
+
 
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -39,14 +50,18 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="/dashboard">📊
+							Dashboard</a></li>
 					<c:choose>
 						<c:when test="${not empty user}">
-							<li class="nav-item"><a class="nav-link" href="#">👤 ${user.firstName}</a></li>
-							<li class="nav-item"><a class="nav-link" href="/dashboard">📊 Dashboard</a></li>
-							<li class="nav-item"><a class="nav-link" href="/logout">🔓 Logout</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">👤
+									${user.firstName}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/logout">🔓
+									Logout</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/join">🔐 Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="/join">🔐
+									Login</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -65,11 +80,11 @@
 				style="max-width: 500px;">
 				<div class="mb-4">
 					<label for="minutes" class="form-label">⏱️ Free Time (in
-						minutes)</label> <input type="number" name="minutes" id="minutes"
+						minutes)</label> <input type="number" name="minutes" id="minutes" min="1"
 						class="form-control" placeholder="e.g., 10" required> <label
 						for="minutes" class="form-label"></label> <input type="text"
-
-						class="form-control" placeholder="what is on your mind" name="status">
+						class="form-control" placeholder="what is on your mind"
+						name="status">
 				</div>
 
 
@@ -144,11 +159,12 @@
 				</div>
 
 
-				<button type="submit" class="btn btn-submit w-100">🚀 Get
-					My Perfect Suggestion</button>
+				<button type="submit" class="btn btn-submit w-100"> Get  Suggestion</button>
 			</form>
 		</div>
+		
 	</div>
+
 
 	<!-- More Suggestions Section -->
 	<div class="suggestions-section container">
@@ -185,19 +201,67 @@
 			<div class="col-md-4">
 				<div class="card suggestion-card shadow-lg h-100">
 					<div class="card-body">
-						<h5 class="card-title">📝 quick note</h5>
+						<h5 class="card-title">📝 Quick Note</h5>
 						<p class="card-text">Grab a pen and paper and draw, doodle, or
 							write down three things you're grateful for today.</p>
 					</div>
 				</div>
 			</div>
+			<div class="col-md-4">
+				<div class="card suggestion-card shadow-lg h-100">
+					<div class="card-body">
+						<h5 class="card-title">🎵 Music Boost</h5>
+						<p class="card-text">Listen to a favorite song or calming
+							instrumental to reset your mind and elevate your mood.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card suggestion-card shadow-lg h-100">
+					<div class="card-body">
+						<h5 class="card-title">🌿 Step Outside</h5>
+						<p class="card-text">Take a 5-minute walk or simply stand on
+							your balcony to breathe fresh air and recharge.</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+	
+	<!-- Add this overlay to your page -->
+<div class="loading-overlay hidden" id="loadingOverlay" onclick="hideLoading()">
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="loading-text">Preparing your result</div>
+</div>
+
+
+	<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+		<div id="loginToast"
+			class="toast align-items-center text-white bg-success border-0"
+			role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body">Login successful!</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto"
+					data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+	<div style="flex-grow: 1;"></div>
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
 			<p class="mb-1">&copy; 2025 TimeTrek. All rights reserved.</p>
-			<a href="https://github.com/DevAbdallahSi/Time-Trek.git" class="text-light text-decoration-none">GitHub</a>
+			<a href="https://github.com/DevAbdallahSi/Time-Trek.git"
+				class="text-light text-decoration-none">GitHub</a>
 		</div>
 	</footer>
 
@@ -206,8 +270,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script src="/js/home.js"></script>
-
-
 
 </body>
 

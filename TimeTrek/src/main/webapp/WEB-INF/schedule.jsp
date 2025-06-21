@@ -36,9 +36,9 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/dashboard">📊 Dashboard</a></li>
+					<li class="nav-item"><a class="nav-link" href="/logout">🔓 Logout</a></li>
 				</ul>
 			</div>
 		</div>
