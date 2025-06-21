@@ -1,5 +1,10 @@
 package com.TimeTrek.controllers;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.TimeTrek.models.Goal;
+import com.TimeTrek.models.Result;
 import com.TimeTrek.models.User;
 import com.TimeTrek.services.GoalService;
 import com.TimeTrek.services.ResultService;
@@ -53,13 +58,25 @@ public class GoalController {
 		}
 		model.addAttribute("user", user);
 		model.addAttribute("goal", new Goal());
-		model.addAttribute("ownedGoals",goalservice.findGoalByOwnerID(user.getId()));
-		model.addAttribute("activeGoals",goalservice.findGoalByOwnerID(user.getId()).size());
+		model.addAttribute("ownedGoals", goalservice.findGoalByOwnerID(user.getId()));
+		model.addAttribute("activeGoals", goalservice.findGoalByOwnerID(user.getId()).size());
+		Calendar today = Calendar.getInstance();
+		today.set(Calendar.HOUR_OF_DAY, 0);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+		today.set(Calendar.MILLISECOND, 0);
+
+		Calendar tomorrow = (Calendar) today.clone();
+		tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+
+		List<Result> todaysResults = user.getOwnedResults().stream().filter(result -> {
+			Date createdAt = result.getCreatedAt();
+			return !createdAt.before(today.getTime()) && createdAt.before(tomorrow.getTime());
+		}).collect(Collectors.toList());
+
+		model.addAttribute("todaysResults", todaysResults);
 		return "dashboard";
 	}
-	
-	
-	
 
 	@PostMapping("/newGoal")
 	public String createGoal(@Valid @ModelAttribute("goal") Goal goal, HttpSession session, BindingResult result,
@@ -82,19 +99,16 @@ public class GoalController {
 		return "redirect:/dashboard";
 	}
 
-	
-	
 	@DeleteMapping("/deleteGoal/{goalId}")
 	public String deleteProject(@PathVariable("goalId") Long goalId, HttpSession session) {
-	    User user = (User) session.getAttribute("loggedInUser");
-	    if (user == null) {
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
 			session.invalidate(); // Clear the session if the user doesn't exist
-	        return "redirect:/";
-	    }
+			return "redirect:/";
+		}
 
-	    goalservice.deleteGoal(goalId);
-	    return "redirect:/dashboard";
+		goalservice.deleteGoal(goalId);
+		return "redirect:/dashboard";
 	}
-
 
 }

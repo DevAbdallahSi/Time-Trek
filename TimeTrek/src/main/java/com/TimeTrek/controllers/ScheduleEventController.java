@@ -1,96 +1,83 @@
 package com.TimeTrek.controllers;
 
-import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.TimeTrek.models.ScheduleEvent;
 import com.TimeTrek.models.User;
 import com.TimeTrek.services.ScheduleEventService;
-import com.TimeTrek.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/schedule")
 public class ScheduleEventController {
 
-    @Autowired
-    private ScheduleEventService eventService;
+	private final ScheduleEventService eventService;
 
-    @Autowired
-    private UserService userService;
+	public ScheduleEventController(ScheduleEventService eventService) {
+		this.eventService = eventService;
+	}
 
-    @GetMapping("/events")
-    @ResponseBody
-    public ResponseEntity<List<EventDTO>> getEvents(Principal principal) {
-        Optional<User> userOpt = userService.findByEmail(principal.getName());
+	@GetMapping("/view")
+	public String viewSchedulePage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			return "redirect:/join"; // Or your login page
+		}
+		model.addAttribute("user", user);
+		return "schedule";
+	}
 
-        if (userOpt.isEmpty()) {
-            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.UNAUTHORIZED);
-        }
+	@GetMapping("/events")
+	@ResponseBody
+	public ResponseEntity<List<EventDTO>> getEvents(HttpSession session) {
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
 
-        User user = userOpt.get();
+		List<EventDTO> eventDTOs = eventService.findByOwner(user).stream()
+				.map(e -> new EventDTO(e.getId(), e.getTitle(), e.getStart().toString(), e.getEnd().toString()))
+				.collect(Collectors.toList());
 
-        List<EventDTO> eventDTOs = eventService.findByOwner(user)
-                .stream()
-                .map(e -> new EventDTO(
-                        e.getId(),
-                        e.getTitle(),
-                        e.getStart().toString(),
-                        e.getEnd().toString()))
-                .collect(Collectors.toList());
+		return ResponseEntity.ok(eventDTOs);
+	}
 
-        return ResponseEntity.ok(eventDTOs);
-    }
+	@PostMapping("/events")
+	@ResponseBody
+	public ResponseEntity<?> addEvent(@RequestBody ScheduleEvent data, HttpSession session) {
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in.");
+		}
 
-    @PostMapping("/events")
-    @ResponseBody
-    public ResponseEntity<?> addEvent(@RequestBody ScheduleEvent data, Principal principal) {
-        Optional<User> userOpt = userService.findByEmail(principal.getName());
+		ScheduleEvent saved = eventService.save(
+				new ScheduleEvent(data.getTitle(), data.getStart(), data.getEnd(), data.getDescription(), user)
+		);
 
-        if (userOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found.");
-        }
+		EventDTO dto = new EventDTO(saved.getId(), saved.getTitle(), saved.getStart().toString(), saved.getEnd().toString());
+		return ResponseEntity.ok(dto);
+	}
 
-        User user = userOpt.get();
+	// DTO class
+	public static class EventDTO {
+		public Long id;
+		public String title;
+		public String start;
+		public String end;
 
-        ScheduleEvent saved = eventService.save(new ScheduleEvent(
-                data.getTitle(),
-                data.getStart(),
-                data.getEnd(),
-                data.getDescription(),
-                user
-        ));
-
-        EventDTO dto = new EventDTO(
-                saved.getId(),
-                saved.getTitle(),
-                saved.getStart().toString(),
-                saved.getEnd().toString()
-        );
-
-        return ResponseEntity.ok(dto);
-    }
-
-    // You can move this to its own file if preferred
-    public static class EventDTO {
-        public Long id;
-        public String title;
-        public String start;
-        public String end;
-
-        public EventDTO(Long id, String title, String start, String end) {
-            this.id = id;
-            this.title = title;
-            this.start = start;
-            this.end = end;
-        }
-    }
+		public EventDTO(Long id, String title, String start, String end) {
+			this.id = id;
+			this.title = title;
+			this.start = start;
+			this.end = end;
+		}
+	}
 }
