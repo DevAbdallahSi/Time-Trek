@@ -70,10 +70,11 @@ public class GoalController {
 				.sorted((r1, r2) -> r2.getCreatedAt().compareTo(r1.getCreatedAt())).toList()) {
 			if (res.isCompleted() && res.getCreatedAt().getDate() == today.getTime().getDate()) {
 				completedToday++;
-				minutesTracked += res.getMinutes();
 			}
+			if(res.isCompleted())minutesTracked+=res.getMinutes();
+			
+			if(res.isCompleted()&&streakintact&&(prevday!=res.getCreatedAt().getDate()||prevday==0)) { 
 
-			if (res.isCompleted() && streakintact && (prevday != res.getCreatedAt().getDate() || prevday == 0)) {
 				dayStreak++;
 				prevday = res.getCreatedAt().getDate();
 			} else
