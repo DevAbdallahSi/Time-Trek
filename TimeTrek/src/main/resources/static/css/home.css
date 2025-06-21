@@ -13,7 +13,24 @@ body {
 	background-attachment: fixed;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	min-height: 100vh;
+	display:flex;
+    flex-direction:column; 
 }
+.alert.hide {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+  .glass-alert {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+ /* semi-transparent */
+  backdrop-filter: blur(8px);           /* blurred background */
+  -webkit-backdrop-filter: blur(8px);   /* for Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  border-radius: 16px;
+}
+  
 
 /* Glassmorphism Navbar */
 .navbar {
@@ -67,6 +84,39 @@ body {
 		50%, transparent 70%);
 	animation: shimmer 3s infinite;
 }
+.result-wait-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 1rem 1.5rem;
+	margin-top: 20px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	color: #fff;
+	font-size: 1.1rem;
+	animation: fadeIn 0.5s ease-in-out;
+}
+
+.ping-circle {
+	width: 20px;
+	height: 20px;
+	background: #90cdf4;
+	border-radius: 50%;
+	animation: ping 1.5s infinite;
+}
+
+@keyframes ping {
+	0% { transform: scale(1); opacity: 1; }
+	75% { transform: scale(2.5); opacity: 0; }
+	100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(-5px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
 
 @keyframes shimmer { 0% {
 	transform: translateX(-100%);

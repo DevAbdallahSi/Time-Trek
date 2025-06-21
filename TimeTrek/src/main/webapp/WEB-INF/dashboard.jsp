@@ -126,7 +126,7 @@
 											value="${endDate}" pattern="hh:mm a" />
 									</span> <span>Duration: ${item.minutes} minutes</span>
 									<c:if test="${not empty item.status}">
-										<span>Status: ${item.status}</span>
+										<span>Search About : ${item.status}</span>
 									</c:if>
 								</div>
 								<span> Completed: <a class="nounderline"
