@@ -48,7 +48,8 @@
 									Logout</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/join">🔐	 Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="/join">🔐
+									Login</a></li>
 
 						</c:otherwise>
 					</c:choose>
@@ -67,8 +68,9 @@
 						style="color: white; font-weight: 700; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); margin-bottom: 1rem;">
 						📋 Your Request</h3>
 					<div>
-						<span class="summary-badge">⏱️ ${result.minutes} minutes available</span> 
-						<span class="summary-badge">🧠 Feeling ${result.mood}</span>
+						<span class="summary-badge">⏱️ ${result.minutes} minutes
+							available</span> <span class="summary-badge">🧠 Feeling
+							${result.mood}</span>
 					</div>
 					<c:if test="${not empty result.status}">
 						<p
@@ -105,10 +107,20 @@
 			<div
 				class="action-buttons d-flex justify-content-center gap-3 align-items-center flex-wrap mt-3">
 				<c:if test="${not empty user}">
-					<!-- ✅ Mark as Completed Button -->
-					<a href="/complete/${result.id}"
-						class="btn btn-action text-light d-flex align-items-center"> ✅
-						Mark as Completed </a>
+					<c:choose>
+						<c:when test="${not result.completed}">
+							<!-- ✅ Mark as Completed Button -->
+							<a href="/complete/${result.id}"
+								class="btn btn-action text-light d-flex align-items-center">
+								✅ Mark as Completed </a>
+						</c:when>
+						<c:otherwise>
+							<a href="/complete/${result.id}"
+								class="btn btn-action text-light d-flex align-items-center">
+								❎ Mark as incomplete </a>
+						</c:otherwise>
+
+					</c:choose>
 				</c:if>
 
 				<!-- 🔄 Get New Suggestion Form -->
@@ -133,9 +145,9 @@
 	<footer class="text-center">
 		<div class="container">
 			<p class="mb-1">© 2025 TimeTrek. All rights reserved.</p>
-			<a href="https://github.com/DevAbdallahSi/Time-Trek.git" class="text-light">GitHub</a> | <a href=""
-				class="text-light">Privacy Policy</a> | <a href="#"
-				class="text-light">Terms of Service</a>
+			<a href="https://github.com/DevAbdallahSi/Time-Trek.git"
+				class="text-light">GitHub</a> | <a href="" class="text-light">Privacy
+				Policy</a> | <a href="#" class="text-light">Terms of Service</a>
 		</div>
 	</footer>
 
