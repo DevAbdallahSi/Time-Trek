@@ -134,8 +134,8 @@
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
-			<p class="mb-1">© 2025 Time Path. All rights reserved.</p>
-			<a href="#" class="text-light">GitHub</a> | <a href="#"
+			<p class="mb-1">© 2025 TimeTrek. All rights reserved.</p>
+			<a href="https://github.com/DevAbdallahSi/Time-Trek.git" class="text-light">GitHub</a> | <a href=""
 				class="text-light">Privacy Policy</a> | <a href="#"
 				class="text-light">Terms of Service</a>
 		</div>

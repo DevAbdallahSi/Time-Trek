@@ -3,12 +3,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page isErrorPage="true"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dashboard - Time Path</title>
+<title>Dashboard - TimeTrek</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
@@ -31,7 +33,7 @@
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="/">🕒 Time Path</a>
+			<a class="navbar-brand" href="/">🕒 TimeTrek</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav">
 				<span class="navbar-toggler-icon"></span>
@@ -41,6 +43,8 @@
 				id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/schedule/view">📅
+							My Schedule</a></li>
 					<c:choose>
 						<c:when test="${not empty user}">
 							<li class="nav-item"><a class="nav-link disabled"
@@ -102,14 +106,31 @@
 			<!-- Day Summary Section -->
 			<div class="day-summary">
 				<h3 class="section-title">📅 Today's Summary</h3>
-				<c:forEach var="item" items="${user.ownedResults}">
+				<c:forEach var="item" items="${todaysResults}">
+					<c:set var="startTime" value="${item.createdAt}" />
+					<!-- Convert minutes to milliseconds and add it to startTime -->
+					<c:set var="durationMillis" value="${item.minutes * 60000}" />
+
+					<!-- Compute end timestamp -->
+					<c:set var="endTimeMillis"
+						value="${startTime.time + durationMillis}" />
+
+					<!-- Convert Long to Date -->
+					<jsp:useBean id="endDate" class="java.util.Date" />
+					<c:set target="${endDate}" property="time" value="${endTimeMillis}" />
+
+					<!-- Display -->
 					<div class="activity-item">
 						<div class="activity-details">
-							<span class="activity-time">${item.createdAt} -
-								${endTime}</span> | Duration: ${item.minutes} | Status:${item.status}
+							<span class="activity-time"> <fmt:formatDate
+									value="${startTime}" pattern="hh:mm a" /> - <fmt:formatDate
+									value="${endDate}" pattern="hh:mm a" />
+							</span> | Duration: ${item.minutes} minutes | Status: ✅ ${item.status}
 						</div>
 					</div>
 				</c:forEach>
+
+
 			</div>
 
 			<!-- Goals Section -->
@@ -189,21 +210,14 @@
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
-			<p class="mb-1">© 2025 Time Path. All rights reserved.</p>
-			<a href="#" class="text-light">GitHub</a> | <a href="#"
+			<p class="mb-1">© 2025 TimeTrek. All rights reserved.</p>
+			<a href="#" class="text-light">GitHub</a> | <a
+				href="https://github.com/DevAbdallahSi/Time-Trek.git"
 				class="text-light">Privacy Policy</a> | <a href="#"
 				class="text-light">Terms of Service</a>
 		</div>
 	</footer>
-	<c:if test="${showGoalModal == true}">
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				const modal = new bootstrap.Modal(document
-						.getElementById('goalModal'));
-				modal.show();
-			});
-		</script>
-	</c:if>
+
 
 	<!-- Bootstrap JS -->
 	<script

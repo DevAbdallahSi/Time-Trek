@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Time Path</title>
+<title>TimeTrek</title>
 <!-- Meta tags for mobile optimization -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -31,7 +31,7 @@
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="#">🕒 Time Path</a>
+			<a class="navbar-brand" href="#">🕒 TimeTrek</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav">
 				<span class="navbar-toggler-icon"></span>
@@ -197,8 +197,8 @@
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="container">
-			<p class="mb-1">&copy; 2025 Time Trek. All rights reserved.</p>
-			<a href="#" class="text-light text-decoration-none">GitHub</a>
+			<p class="mb-1">&copy; 2025 TimeTrek. All rights reserved.</p>
+			<a href="https://github.com/DevAbdallahSi/Time-Trek.git" class="text-light text-decoration-none">GitHub</a>
 		</div>
 	</footer>
 
