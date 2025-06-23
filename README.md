@@ -20,7 +20,7 @@ Too often when we find ourselves with a small window of free time, we default to
 - 🤖 The app suggests a **goal-aligned activity**, using an AI model running on the backend
 
 ---
-![Uploading TimeTrek-GoogleChrome2025-06-2310-16-20-ezgif.com-video-to-gif-converter (1).gif…]()
+[Uploading TimeTrek-GoogleChrome2025-06-2310-16-20-ezgif.com-video-to-gif-converter (1).gif…]()
 
 
 ## 🛠️ Tech Stack
