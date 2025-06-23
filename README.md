@@ -1,4 +1,4 @@
-# ⏳ TimeTrek - Slice of Time
+![TimeTrek-GoogleChrome2025-06-2310-16-20-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/0fe105e8-8d02-4dd5-9ea7-761daedcd68f)# ⏳ TimeTrek - Slice of Time
 
 **A service to take back control of your time.**
 
@@ -20,7 +20,8 @@ Too often when we find ourselves with a small window of free time, we default to
 - 🤖 The app suggests a **goal-aligned activity**, using an AI model running on the backend
 
 ---
-[Uploading TimeTrek-GoogleChrome2025-06-2310-16-20-ezgif.com-video-to-gif-converter (1).gif…]()
+![Screenshot 2025-06-23 094609](https://github.com/user-attachments/assets/a0e1a013-7151-47df-b45d-cd1a9018cf6e)
+
 
 
 ## 🛠️ Tech Stack
