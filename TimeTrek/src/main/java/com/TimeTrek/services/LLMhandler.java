@@ -21,7 +21,7 @@ public class LLMhandler {
 	public static void prewarmLLM() {
 		
 		LLM=new OllamaAPI(host);
-		modelName=getModel();
+//		modelName=getModel();
 	}
 	
 	public static String generate(String input) {
@@ -56,7 +56,7 @@ public class LLMhandler {
 		}
 		
 		
-		return getResponse(time,mood,status+", personal goals are as noted:"+goals).replaceAll("*", "");
+		return getResponse(time,mood,status+", personal goals are as noted:"+goals);
 	}
 	
 // another idea is to suggest new personal goals, using some previous information like the history and other goals as to no repeat them.
